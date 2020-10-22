@@ -15,10 +15,9 @@ Wanna go from getting a 60 on peformance in Lighthouse to a 97?
 
 -->
 	
-<link rel="stylesheet" 
-		href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
-		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
-		crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js" integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD" crossorigin="anonymous"></script>
+
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
 
@@ -64,9 +63,9 @@ if ( strpos($_SERVER['HTTP_USER_AGENT'], 'rv:11.0')     !== false
 	</button>
 </div>
 <?php endif ?>
-<nav class="navbar navbar-expand-lg sticky-top bg-white">
+<nav class="navbar navbar-expand-lg sticky-top bg-white px-3">
 	
-	<a class="navbar-brand" href="/learning-curator/" style="margin: 0 0 0 20px">
+	<a class="navbar-brand" href="/learning-curator/">
 	<img class="animate__animated animate__rotateIn" alt="Logo" height="50" src="/learning-curator/img/curator-rings-logo.svg" width="50">
 		Learning Curator
 	</a>
@@ -176,9 +175,9 @@ if ( strpos($_SERVER['HTTP_USER_AGENT'], 'rv:11.0')     !== false
 		<?php endif ?>
 	</ul>
 
-	<form method="get" action="/learning-curator/activities/find" class="form-inline my-2 my-lg-0 mr-3">
+	<form method="get" action="/learning-curator/activities/find" class="d-flex">
 		<input class="form-control mr-sm-2" type="search" placeholder="Activity Search" aria-label="Search" name="q">
-		<button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+		<button class="btn btn-outline-dark" type="submit">Search</button>
 	</form>
 
 	</div> <!-- /endof .collapse navbar-collapse -->
