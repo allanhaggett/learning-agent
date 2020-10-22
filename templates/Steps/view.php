@@ -168,19 +168,19 @@ if($stepclaimcount > 0) {
 		</h2>	
 		<div class="" style="font-size: 130%;"><?= $s->description; ?></div>
 		<div class="my-3">
-			<span class="badge badge-pill badge-light"><?= $totalacts ?> total activities</span> 
-			<span class="badge badge-pill badge-light"><?= $stepacts ?> required</span>
-			<span class="badge badge-pill badge-light"><?= $supplmentalcount ?> supplemental</span>
-			<span class="badge badge-pill badge-light" style="background-color: rgba(<?= $readcolor ?>,1)">
+			<span class="badge rounded-pill bg-light text-dark"><?= $totalacts ?> total activities</span> 
+			<span class="badge rounded-pill bg-light text-dark"><?= $stepacts ?> required</span>
+			<span class="badge rounded-pill bg-light text-dark"><?= $supplmentalcount ?> supplemental</span>
+			<span class="badge rounded-pill bg-light text-dark" style="background-color: rgba(<?= $readcolor ?>,1)">
 				<?= $allreadstepcount ?> to read
 			</span>  
-			<span class="badge badge-pill badge-light" style="background-color: rgba(<?= $watchcolor ?>,1)">
+			<span class="badge rounded-pill bg-light text-dark" style="background-color: rgba(<?= $watchcolor ?>,1)">
 				<?= $allwatchstepcount ?> to watch
 			</span>  
-			<span class="badge badge-pill badge-light" style="background-color: rgba(<?= $listencolor ?>,1)">
+			<span class="badge rounded-pill bg-light text-dark" style="background-color: rgba(<?= $listencolor ?>,1)">
 				<?= $alllistenstepcount ?> to listen to
 			</span>  
-			<span class="badge badge-pill badge-light" style="background-color: rgba(<?= $participatecolor ?>,1)">
+			<span class="badge rounded-pill bg-light text-dark" style="background-color: rgba(<?= $participatecolor ?>,1)">
 				<?= $allparticipatestepcount ?> to participate in
 			</span>  
 		</div>

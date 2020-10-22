@@ -295,26 +295,26 @@ if($stepclaimcount > 0) {
 	<div style="font-size; 130%"><?= $steps->description ?></div>
 	
 	<div class="my-3">
-			<span class="badge badge-pill badge-light"><?= $totalacts ?> total activities</span> 
-			<span class="badge badge-pill badge-light"><?= $stepacts ?> required</span>
-			<span class="badge badge-pill badge-light"><?= $supplmentalcount ?> supplemental</span>
-			<span class="badge badge-pill badge-light" style="background-color: rgba(<?= $readcolor ?>,1)">
+			<span class="badge rounded-pill bg-light text-dark"><?= $totalacts ?> total activities</span> 
+			<span class="badge rounded-pill bg-light text-dark"><?= $stepacts ?> required</span>
+			<span class="badge rounded-pill bg-light text-dark"><?= $supplmentalcount ?> supplemental</span>
+			<span class="badge rounded-pill bg-light text-dark" style="background-color: rgba(<?= $readcolor ?>,1) !important">
 				<?= $readstepcount ?> to read
 			</span>  
-			<span class="badge badge-pill badge-light" style="background-color: rgba(<?= $watchcolor ?>,1)">
+			<span class="badge rounded-pill bg-light text-dark" style="background-color: rgba(<?= $watchcolor ?>,1) !important">
 				<?= $watchstepcount ?> to watch
 			</span>  
-			<span class="badge badge-pill badge-light" style="background-color: rgba(<?= $listencolor ?>,1)">
+			<span class="badge rounded-pill bg-light text-dark" style="background-color: rgba(<?= $listencolor ?>,1) !important">
 				<?= $listenstepcount ?> to listen to
 			</span>  
-			<span class="badge badge-pill badge-light" style="background-color: rgba(<?= $participatecolor ?>,1)">
+			<span class="badge rounded-pill bg-light text-dark" style="background-color: rgba(<?= $participatecolor ?>,1) !important">
 				<?= $participatestepcount ?> to participate in
 			</span>  
 		</div>
 		
 	<div class="progress progress-bar-striped mb-3" style="background-color: #F1F1F1; height: 26px;">
-	  <div class="progress-bar" role="progressbar" style="background-color: rgba(88,174,36,.8); color: #FFF; width: <?= $steppercent ?>%" aria-valuenow="<?= $steppercent ?>" aria-valuemin="0" aria-valuemax="100">
-		<?= $steppercent ?>% completed
+	  <div class="progress-bar" role="progressbar" style="background-color: rgba(88,174,36,.8); color: #FFF; width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+		% completed
 	  </div>
 	</div>
 	

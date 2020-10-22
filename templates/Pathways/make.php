@@ -187,9 +187,9 @@ if($stepclaimcount > 0) {
 		<span class="badge badge-light" style="background-color: rgba(<?= $listencolor ?>,1)"><?= $listenstepcount ?> to listen to</span>  
 		<span class="badge badge-light" style="background-color: rgba(<?= $participatecolor ?>,1)"><?= $participatestepcount ?> to participate in</span>  
 		
-		<span class="badge badge-pill badge-light"><?= $totalacts ?> total</span> 
-		<span class="badge badge-pill badge-light"><?= $stepacts ?> required</span>
-		<span class="badge badge-pill badge-light"><?= $supplmentalcount ?> supplemental</span>
+		<span class="badge rounded-pill bg-light text-dark"><?= $totalacts ?> total</span> 
+		<span class="badge rounded-pill bg-light text-dark"><?= $stepacts ?> required</span>
+		<span class="badge rounded-pill bg-light text-dark"><?= $supplmentalcount ?> supplemental</span>
 	</div>
 
 	
