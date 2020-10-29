@@ -30,11 +30,6 @@ $allreadstepcount = 0;
 $allwatchstepcount = 0;
 $alllistenstepcount = 0;
 $allparticipatestepcount = 0;
-$readcolor = '';
-$watchcolor = '';
-$listencolor = '';
-$participatecolor = '';
-$stepactivitylist = '';
 
 $totalacts = count($step->activities);
 $stepclaimcount = 0;
@@ -70,16 +65,12 @@ foreach ($step->activities as $activity) {
 
 		if($activity->activity_types_id == 1) {
 			$allwatchstepcount++;
-			$watchcolor = $activity->activity_type->color;
 		} elseif($activity->activity_types_id == 2) {
 			$allreadstepcount++;
-			$readcolor = $activity->activity_type->color;
 		} elseif($activity->activity_types_id == 3) {
 			$alllistenstepcount++;
-			$listencolor = $activity->activity_type->color;
 		} elseif($activity->activity_types_id == 4) {
 			$allparticipatestepcount++;
-			$participatecolor = $activity->activity_type->color;
 		}
 
 		$tmp = array();
@@ -246,51 +237,10 @@ $lastobj = $s->description;
 	
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	<div class="activity" id="activity-<?= $activity->id ?>">
 		<?php $idandtype = $activity->id . '-' . $activity->activity_type->id ?>
 		<a href="#" class="btn btn-dark btn-lg" id="followme" onclick="return claimit('<?= $idandtype ?>')">Claim <i class="far fa-check-circle"></i></a>
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -433,28 +383,6 @@ $lastobj = $s->description;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- acitivity rings go here -->
 <div id="paths" style="display: none">
 	<a href="#" class="btn btn-dark btn-block btn-lg" id="followme" onclick="return followit()">Follow</a>
@@ -464,27 +392,9 @@ $lastobj = $s->description;
 		Fill your activity rings and get a certificate!
 	</div>
 </div>
-<div class="p-3 bg-white rounded-lg">
+<div class="p-3 bg-white rounded-lg stickyrings">
 <canvas id="activityrings" width="250" height="250"></canvas>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -494,46 +404,44 @@ $lastobj = $s->description;
 <script src="//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/pouchdb@7.2.1/dist/pouchdb.min.js"></script>
 <script>
-	//
-	// Initialize activity ring load on page load
-	//
-	//loadStatus();
 
-	// A list of all activity IDs from the *pathway*
-	// We use this list when we build the activity rings
-	var pathallactivities = '<?= rtrim($pathallactivities,',') ?>';
 
-	// A list of all activity IDs from this step
-	// We use this list when we compare it with IDs 
-	// that are listed in the localstore 
-	var stepactivitylist = '<?= rtrim($stepactivitylist,',') ?>';
+// A list of all activity IDs from the *pathway*
+// We use this list when we build the activity rings
+var pathallactivities = '<?= rtrim($pathallactivities,',') ?>';
 
-	// The PHP generated the comma-separated list
-	// now split into an array
-	var acts = pathallactivities.split(',');
+// A list of all activity IDs from this step
+// We use this list when we compare it with IDs 
+// that are listed in the localstore 
+var stepactivitylist = '<?= rtrim($stepactivitylist,',') ?>';
 
-	// The pathway ID of this step
-	var pathwayid = <?= $pathid ?>;
+// The PHP generated the comma-separated list
+// now split into an array
+var acts = pathallactivities.split(',');
 
-	// Open the localstore database
-	// If we're planning on synching this to a remote, that 
-	// is where we're going to absolutely need a session/unique id 
-	// variable to create a new database for each user; otherwise, 
-	// everyone is writing to the same datbase and if I claim something
-	// it's now claimed for you too.
-	// If we're not going to create a unique DB for each user, we still
-	// need the unique ID as we'll have to store the value with 
-	// each entry and modify below to use a query instead of 
-	// db.allDocs()
-	var db = new PouchDB('curator-ta'); // http://localhost:5984/
+// The pathway ID of this step
+var pathwayid = <?= $pathid ?>;
 
-	// Set up the variables we'll need to create the activity rings 
+// Open the localstore database
+// If we're planning on synching this to a remote, that 
+// is where we're going to absolutely need a session/unique id 
+// variable to create a new database for each user; otherwise, 
+// everyone is writing to the same datbase and if I claim something
+// it's now claimed for you too.
+// If we're not going to create a unique DB for each user, we still
+// need the unique ID as we'll have to store the value with 
+// each entry and modify below to use a query instead of 
+// db.allDocs()
+var db = new PouchDB('curator-ta'); // http://localhost:5984/
 
-	var watchcolor = '<?= $watchcolor ?>';
-	var readcolor = '<?= $readcolor ?>';
-	var listencolor = '<?= $listencolor ?>';
-	var participatecolor = '<?= $participatecolor ?>';
+//
+// Initialize activity ring load on page load
+//
+loadStatus();
 
+function loadStatus() {
+
+	// Start setting up the variables we'll need to create the activity rings 
 	var watchcount = 0;
 	var readcount = 0;
 	var listencount = 0;
@@ -614,32 +522,42 @@ $lastobj = $s->description;
 		var percent = (Number(overallprogress) * 100) / Number(totalacts);
 		var percentleft = 100 - percent;
 
-		var watchpercent = (Number(watchcount) * 100) / Number(allwatch);
-		var watchpercentleft = 100 - watchpercent;
 		var readpercent = (Number(readcount) * 100) / Number(allread);
-		var readpercentleft = 100 - readpercent;
+		var watchpercent = (Number(watchcount) * 100) / Number(allwatch);
 		var listenpercent = (Number(listencount) * 100) / Number(alllisten);
-		var listenpercentleft = 100 - watchpercent;
 		var participatepercent = (Number(participatecount) * 100) / Number(allparticipate);
-		var participatepercentleft = 100 - participatepercent;
 
-		console.log('Total activities: ' + totalacts);
-		console.log('Activities claimed: ' + overallprogress);
-		if(percent > 0) {
-			console.log('Percent done: ' + Math.ceil(percent));
-			console.log('Percent left: ' + Math.ceil(percentleft));
-		}
-		if(watchpercent > 0) {
-			console.log('Watch Percent done: ' + Math.ceil(watchpercent));
-			console.log('Watch Percent left: ' + Math.ceil(watchpercentleft));
-		}
+		var readcolor = '<?= $readcolor ?>';
+		var watchcolor = '<?= $watchcolor ?>';
+		var listencolor = '<?= $listencolor ?>';
+		var participatecolor = '<?= $participatecolor ?>';
 
-		var chartdata = {"datasets": [
-				{"data": [Math.ceil(readpercent),Math.ceil(readpercentleft)],"backgroundColor": ["rgba(249,145,80,1)","rgba(249,145,80,.2)"]},
-				{"data": [Math.ceil(watchpercent),Math.ceil(watchpercentleft)],"backgroundColor": ["rgba(193,129,183,1)","rgba(193,129,183,.2)"]},
-				{"data": [Math.ceil(listenpercent),Math.ceil(listenpercentleft)],"backgroundColor": ["rgba(244,105,115,1)","rgba(244,105,115,.2)"]},
-				{"data": [Math.ceil(participatepercent),Math.ceil(participatepercentleft)],"backgroundColor": ["rgba(255,218,96,1)","rgba(255,218,96,.2)"]}
-		]};
+		var readleft = Math.floor(100 - readpercent);
+		var watchleft = Math.floor(100 - watchpercent);
+		var listenleft = Math.floor(100 - listenpercent);
+		var partleft = Math.floor(100 - participatepercent);
+
+		var chartdata = {
+			"datasets": [
+				{
+					"data": [readpercent,readleft],
+					"backgroundColor": ["rgba(" + readcolor + ",1)","rgba(" + readcolor + ",.2)"]
+				},
+				{
+					"data": [watchpercent,watchleft]
+					"backgroundColor": ["rgba(" + watchcolor + ",1)","rgba(" + watchcolor + ",.2)"]
+				},
+				{
+					"data": [listenpercent,listenleft],
+					"backgroundColor": ["rgba(" + listencolor + ",1)","rgba(" + listencolor + ",.2)"]
+				},
+				{
+					"data": [participatepercent,partleft],
+					"backgroundColor": ["rgba(" + participatecolor + ",1)","rgba(" + participatecolor + ",.2)"]
+				}
+			],
+			"labels": ["Completed %","In progress %"]
+		};
 
 		var ctx = document.getElementById('activityrings').getContext('2d');
 		var myDoughnutChart = new Chart(ctx, {
@@ -652,121 +570,68 @@ $lastobj = $s->description;
 			}
 		});
 
-
-
 	});
 
-	//
-	// When the user clicks on the "Follow this pathway" button
-	// this function fires and inserts the ID for the pathway
-	// into the localstore
-	//
-	function followit () {		
-		rightnow = new Date().getTime();
-		var doc = {
-			"_id": rightnow.toString(),
-			"date": rightnow.toString(),
-			"pathway": pathwayid,
-		};
-		db.put(doc);
-		document.getElementById("paths").innerHTML = '<h1>Following!</h1>';
-		return false;
+	
+} // end of loadStatus()
+
+//
+// When the user clicks on the "Follow this pathway" button
+// this function fires and inserts the ID for the pathway
+// into the localstore
+//
+function followit () {		
+	rightnow = new Date().getTime();
+	var doc = {
+		"_id": rightnow.toString(),
+		"date": rightnow.toString(),
+		"pathway": pathwayid,
 	};
+	db.put(doc);
+	document.getElementById("paths").innerHTML = '<h1>Following!</h1>';
+	return false;
+}
 
-	//
-	// When the user clicks on the "Claim" button
-	// this function fires and inserts the ID for 
-	// activity into the localstore.
-	// We also update the UI immediately to indicate the claim.
-	// We are encoding both the activity ID and the its 
-	// associated activity type ID so that we can properly
-	// build the activity rings on each page 
-	//
-	function claimit (activityid) {	
+//
+// When the user clicks on the "Claim" button
+// this function fires and inserts the ID for 
+// activity into the localstore.
+// We also update the UI immediately to indicate the claim.
+// We are encoding both the activity ID and the its 
+// associated activity type ID so that we can properly
+// build the activity rings on each page 
+//
+function claimit (activityid) {	
 
-		// use a simple timestamp as the id	
-		rightnow = new Date().getTime();
-		var doc = {
-			"_id": rightnow.toString(),
-			"date": rightnow.toString(),
-			"activity": activityid,
-		};
-		db.put(doc);
-
-		// Now that we've put the activityid-activitytype code
-		// into the localstore, let's separate out the actual
-		// activity id from the activity type
-		var idandtype = activityid.split('-');
-		var iid = 'activity-' + idandtype[0];
-		newbutton = '<span class="btn btn-dark btn-lg">';
-		newbutton += 'Claimed ';
-		newbutton += '<i class="fas fa-check-circle"></i>';
-		newbutton += '</span> ';
-		newbutton += 'View all of your claims on <a href="#">your dashboard</a>';
-		document.getElementById(iid).innerHTML = newbutton;
-		return false;
+	// use a simple timestamp as the id	
+	rightnow = new Date().getTime();
+	var doc = {
+		"_id": rightnow.toString(),
+		"date": rightnow.toString(),
+		"activity": activityid,
 	};
+	db.put(doc);
+
+	// Now that we've put the activityid-activitytype code
+	// into the localstore, let's separate out the actual
+	// activity id from the activity type
+	var idandtype = activityid.split('-');
+	var iid = 'activity-' + idandtype[0];
+	newbutton = '<span class="btn btn-dark btn-lg">';
+	newbutton += 'Claimed ';
+	newbutton += '<i class="fas fa-check-circle"></i>';
+	newbutton += '</span> ';
+	newbutton += 'View all of your claims on <a href="#">your dashboard</a>';
+	document.getElementById(iid).innerHTML = newbutton;
+
+	loadStatus();
+
+	return false;
+}
 		
 
 
 
 
 
-
-
-
-
-
-function loadStatus(watch = 0, read = 0, listen = 0, participate = 0) {
-	
-	watchleft = 100 - watch;
-	readleft = 100 - read;
-	listenleft = 100 - listen;
-	partleft = 100 - participate;
-
-	var chartdata = {"datasets": [
-				{"data": [read,readleft],"backgroundColor": ["rgba(249,145,80,1)","rgba(249,145,80,.2)"]},
-				{"data": [watch,watchleft],"backgroundColor": ["rgba(193,129,183,1)","rgba(193,129,183,.2)"]},
-				{"data": [listen,listenleft],"backgroundColor": ["rgba(244,105,115,1)","rgba(244,105,115,.2)"]},
-				{"data": [participate,partleft],"backgroundColor": ["rgba(255,218,96,1)","rgba(255,218,96,.2)"]}
-	]};
-
-	var ctx = document.getElementById('activityrings').getContext('2d');
-	var myDoughnutChart = new Chart(ctx, {
-		type: 'doughnut',
-		data: chartdata,
-		options: { 
-			legend: { 
-				display: false 
-			},
-		}
-	});
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	// //Creating remote database object
-	// 
-	
-	// var remoteDB = new PouchDB('http://localhost:5984/curator-ta');
-
-	// //Synchronising Remote and local databases
-	// db.sync(remoteDB, function(err, response) {
-	// 	if (err) {
-	// 		return console.log(err);
-	// 	} else {
-	// 		console.log(response);
-	// 	}
-	// });
 </script>

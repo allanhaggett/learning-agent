@@ -183,30 +183,7 @@ This seems to work out, but #TODO investigate optimizing this
 </div>
 <div class="container-fluid linear">
 <div class="row justify-content-md-center">
-<?php if($role == 2 || $role == 5): ?>
-<div class="col-md-2 col-lg-2 order-last">
-<div class="bg-white rounded-lg p-3 my-3">
-<a class="" 
-	data-toggle="collapse" 
-	href="#followerlist" 
-	role="button" 
-	aria-expanded="false" 
-	aria-controls="collapseExample">
-		<span class="badge badge-pill badge-dark"><?= $totalusers ?></span> 
-		people are following this path
-</a>
-<div class="collapse" id="followerlist">
-<ul class="list-group list-group-flush">
-<?php foreach($followers as $follower): ?>
-<li class="list-group-item">
-	<a href="/learning-curator/users/view/<?= $follower[0] ?>"><?= $follower[1] ?></a>
-</li>
-<?php endforeach ?>
-</ul>
-</div>
-</div>
-</div>
-<?php endif ?>
+
 <div class="col-6 col-md-3 col-lg-2">
 
 

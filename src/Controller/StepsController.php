@@ -41,6 +41,7 @@ class StepsController extends AppController
                             'Pathways', 
                             'Pathways.Steps',
                             'Pathways.Steps.Activities',
+                            'Pathways.Steps.Activities.ActivityTypes',
                             'Pathways.Categories', 
                             'Pathways.Users'],
         ]);
@@ -59,24 +60,45 @@ class StepsController extends AppController
         $allread = 0;
         $alllisten = 0;
         $allparticipate = 0;
+        $watchcolor = '';
+        $readcolor = '';
+        $listencolor = '';
+        $participatecolor = '';
+        
         foreach($allstepacts as $s) {
             foreach($s->activities as $a) {
+                
                 $pathallactivities .= $a->id . '-' . $a->activity_types_id . ',';
                 if($a->_joinData->required == 1) {
-                    if($a->activity_types_id == 1) {
+                    if($a->activity_type->id == 1) {
                         $allwatch++;
-                    } elseif($a->activity_types_id == 2) {
+                        $watchcolor = $a->activity_type->color;
+                    } elseif($a->activity_type->id == 2) {
                         $allread++;
-                    } elseif($a->activity_types_id == 3) {
+                        $readcolor = $a->activity_type->color;
+                    } elseif($a->activity_type->id == 3) {
                         $alllisten++;
-                    } elseif($a->activity_types_id == 4) {
+                        $listencolor = $a->activity_type->color;
+                    } elseif($a->activity_type->id == 4) {
                         $allparticipate++;
+                        $participatecolor = $a->activity_type->color;
                     }
                 }
             }
         }
-        
-        $this->set(compact('step','pathid','pathallactivities','allwatch','allread','alllisten','allparticipate'));
+
+        $this->set(compact('step',
+                            'pathid',
+                            'pathallactivities',
+                            'allwatch',
+                            'allread',
+                            'alllisten',
+                            'allparticipate',
+                            'watchcolor',
+                            'readcolor',
+                            'listencolor',
+                            'participatecolor'
+                            ));
     }
 
     /**
