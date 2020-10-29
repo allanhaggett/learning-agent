@@ -491,7 +491,7 @@ $lastobj = $s->description;
 </div>
 </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/npm/pouchdb@7.2.1/dist/pouchdb.min.js"></script>
 <script>
 	//
@@ -516,23 +516,18 @@ $lastobj = $s->description;
 	var pathwayid = <?= $pathid ?>;
 
 	// Open the localstore database
-	// #TODO sync this a remote database!
 	// If we're planning on synching this to a remote, that 
-	// this is where I'm going to absolutely need a session/unique id 
+	// is where we're going to absolutely need a session/unique id 
 	// variable to create a new database for each user; otherwise, 
 	// everyone is writing to the same datbase and if I claim something
 	// it's now claimed for you too.
-	// If we're going to create a unique DB for each user, we still
+	// If we're not going to create a unique DB for each user, we still
 	// need the unique ID as we'll have to store the value with 
-	// each entry and modify below not use a query instead of 
+	// each entry and modify below to use a query instead of 
 	// db.allDocs()
 	var db = new PouchDB('curator-ta'); // http://localhost:5984/
 
-	// Start looping through each item in the localstore
-	// A record will either be a pathway or an activity
-	// so we just perform a simple check and update the UI 
-	// accordingly
-	var progress = 0;
+	// Set up the variables we'll need to create the activity rings 
 
 	var watchcolor = '<?= $watchcolor ?>';
 	var readcolor = '<?= $readcolor ?>';
@@ -543,30 +538,37 @@ $lastobj = $s->description;
 	var readcount = 0;
 	var listencount = 0;
 	var participatecount = 0;
+	var overallprogress = 0;
 
-	//
-	// Loop through every row in the database and look at each;
-	// with a little logic, we build it all :) 
-	//
+	// Start looping through each item in the localstore
+	// A record will either be a pathway or an activity
+	// so we perform a check for either and update the UI 
+	// accordingly
 	db.allDocs({include_docs: true, descending: true}, function(err, doc) {
 
 		doc.rows.forEach(function(e,index){
 
 			//
 			// Activities
-			// Take the list of all activities on this step and 
-			// break it in an array. Then loop through said array
+			//
+			// Take the list of all activities on this pathway and 
+			// break it into an array. Then loop through said array
 			// and compare each of the IDs against the ID from our
 			// localstore. If there's a match, then update the claim
 			// button to indicate you've already claimed.
-			// While we're looping through, we also build up the 
-			// var necessary to show the activity rings 
+			//
+			// We also build up the vars necessary to show
+			// the activity rings .
+			//
 			// #TODO implement unclaim
 			// 
 			acts.forEach(function(item, index, arr) {
+				// Does the ID in the localstore equal an ID from the path?
 				if(e.doc['activity'] === item) {
 					let idandtype = item.split('-');
 					let iid = 'activity-' + idandtype[0];
+					// Does the activity appear on this page? If so, 
+					// update the UI to show it's claimed
 					if(document.getElementById(iid)) {
 						let newbutton = '<span class="btn btn-dark btn-lg">';
 						newbutton += 'Claimed ';
@@ -574,6 +576,7 @@ $lastobj = $s->description;
 						newbutton += '</span>';
 						document.getElementById(iid).innerHTML = newbutton;
 					}
+					// Look at the activity type and update our type counts
 					if(idandtype[1] == 1) {
 						watchcount++;
 					} else if(idandtype[1] == 2) {
@@ -583,7 +586,7 @@ $lastobj = $s->description;
 					} else if(idandtype[1] == 4) {
 						participatecount++;
 					}
-					progress++;
+					overallprogress++;
 				}
 			});
 			
@@ -595,25 +598,33 @@ $lastobj = $s->description;
 			// we just show the default follow button that's 
 			// already in the markup
 			if(e.doc['pathway'] == pathwayid) {
-				document.getElementById("paths").innerHTML = '<h1>Following!</h1>';
+				//document.getElementById("paths").innerHTML = '<h1>Following!</h1>';
+				//document.getElementById("paths").style.display = 'block';
 			} 
 
 		}); // end of db.allDocs()
 
+		// Start putting the rings together
 		var allwatch = <?= $allwatch ?>;
 		var allread = <?= $allread ?>;
 		var alllisten = <?= $alllisten ?>;
 		var allparticipate = <?= $allparticipate ?>;
 
 		var totalacts = acts.length;
-		var percent = (Number(progress) * 100) / Number(totalacts);
+		var percent = (Number(overallprogress) * 100) / Number(totalacts);
 		var percentleft = 100 - percent;
 
 		var watchpercent = (Number(watchcount) * 100) / Number(allwatch);
 		var watchpercentleft = 100 - watchpercent;
+		var readpercent = (Number(readcount) * 100) / Number(allread);
+		var readpercentleft = 100 - readpercent;
+		var listenpercent = (Number(listencount) * 100) / Number(alllisten);
+		var listenpercentleft = 100 - watchpercent;
+		var participatepercent = (Number(participatecount) * 100) / Number(allparticipate);
+		var participatepercentleft = 100 - participatepercent;
 
 		console.log('Total activities: ' + totalacts);
-		console.log('Activities claimed: ' + progress);
+		console.log('Activities claimed: ' + overallprogress);
 		if(percent > 0) {
 			console.log('Percent done: ' + Math.ceil(percent));
 			console.log('Percent left: ' + Math.ceil(percentleft));
@@ -622,13 +633,12 @@ $lastobj = $s->description;
 			console.log('Watch Percent done: ' + Math.ceil(watchpercent));
 			console.log('Watch Percent left: ' + Math.ceil(watchpercentleft));
 		}
-		document.getElementById("paths").style.display = 'block';
 
 		var chartdata = {"datasets": [
-				{"data": [53,47],"backgroundColor": ["rgba(249,145,80,1)","rgba(249,145,80,.2)"]},
+				{"data": [Math.ceil(readpercent),Math.ceil(readpercentleft)],"backgroundColor": ["rgba(249,145,80,1)","rgba(249,145,80,.2)"]},
 				{"data": [Math.ceil(watchpercent),Math.ceil(watchpercentleft)],"backgroundColor": ["rgba(193,129,183,1)","rgba(193,129,183,.2)"]},
-				{"data": [50,50],"backgroundColor": ["rgba(244,105,115,1)","rgba(244,105,115,.2)"]},
-				{"data": [37,63],"backgroundColor": ["rgba(255,218,96,1)","rgba(255,218,96,.2)"]}
+				{"data": [Math.ceil(listenpercent),Math.ceil(listenpercentleft)],"backgroundColor": ["rgba(244,105,115,1)","rgba(244,105,115,.2)"]},
+				{"data": [Math.ceil(participatepercent),Math.ceil(participatepercentleft)],"backgroundColor": ["rgba(255,218,96,1)","rgba(255,218,96,.2)"]}
 		]};
 
 		var ctx = document.getElementById('activityrings').getContext('2d');
@@ -707,13 +717,18 @@ $lastobj = $s->description;
 
 
 
-function loadStatus() {
+function loadStatus(watch = 0, read = 0, listen = 0, participate = 0) {
 	
+	watchleft = 100 - watch;
+	readleft = 100 - read;
+	listenleft = 100 - listen;
+	partleft = 100 - participate;
+
 	var chartdata = {"datasets": [
-				{"data": [53,47],"backgroundColor": ["rgba(249,145,80,1)","rgba(249,145,80,.2)"]},
-				{"data": [75,25],"backgroundColor": ["rgba(193,129,183,1)","rgba(193,129,183,.2)"]},
-				{"data": [50,50],"backgroundColor": ["rgba(244,105,115,1)","rgba(244,105,115,.2)"]},
-				{"data": [37,63],"backgroundColor": ["rgba(255,218,96,1)","rgba(255,218,96,.2)"]}
+				{"data": [read,readleft],"backgroundColor": ["rgba(249,145,80,1)","rgba(249,145,80,.2)"]},
+				{"data": [watch,watchleft],"backgroundColor": ["rgba(193,129,183,1)","rgba(193,129,183,.2)"]},
+				{"data": [listen,listenleft],"backgroundColor": ["rgba(244,105,115,1)","rgba(244,105,115,.2)"]},
+				{"data": [participate,partleft],"backgroundColor": ["rgba(255,218,96,1)","rgba(255,218,96,.2)"]}
 	]};
 
 	var ctx = document.getElementById('activityrings').getContext('2d');

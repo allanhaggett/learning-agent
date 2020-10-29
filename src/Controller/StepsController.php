@@ -62,7 +62,7 @@ class StepsController extends AppController
         foreach($allstepacts as $s) {
             foreach($s->activities as $a) {
                 $pathallactivities .= $a->id . '-' . $a->activity_types_id . ',';
-                if($a->status_id == 2) {
+                if($a->_joinData->required == 1) {
                     if($a->activity_types_id == 1) {
                         $allwatch++;
                     } elseif($a->activity_types_id == 2) {
