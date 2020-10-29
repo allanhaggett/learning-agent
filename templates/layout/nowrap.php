@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us"> <!-- manifest="/learning-curator/curator-ta.manifest" -->
 <head>
 <?= $this->Html->charset() ?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

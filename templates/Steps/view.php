@@ -34,6 +34,7 @@ $readcolor = '';
 $watchcolor = '';
 $listencolor = '';
 $participatecolor = '';
+$stepactivitylist = '';
 
 $totalacts = count($step->activities);
 $stepclaimcount = 0;
@@ -49,24 +50,23 @@ foreach ($step->activities as $activity) {
 	} elseif($activity->status_id == 2) {
 		// if it's required
 		if($activity->_joinData->required == 1) {
+			$stepactivitylist .= $activity->id . '-' . $activity->activity_types_id . ',';
 			array_push($requiredacts,$activity);
 			if($activity->activity_types_id == 1) {
 				$watchstepcount++;
 			} elseif($activity->activity_types_id == 2) {
 				$readstepcount++;
-				
 			} elseif($activity->activity_types_id == 3) {
 				$listenstepcount++;
-				
 			} elseif($activity->activity_types_id == 4) {
 				$participatestepcount++;
-				
 			}
 		// Otherwise it's teriary
 		} else {
 			array_push($supplementalacts,$activity);
 		}
 		array_push($acts,$activity);
+		
 
 		if($activity->activity_types_id == 1) {
 			$allwatchstepcount++;
@@ -82,9 +82,6 @@ foreach ($step->activities as $activity) {
 			$participatecolor = $activity->activity_type->color;
 		}
 
-		if(in_array($activity->id,$useractivitylist)) {
-			$stepclaimcount++;
-		}
 		$tmp = array();
 		// Loop through the whole list, add steporder to tmp array
 		foreach($requiredacts as $line) {
@@ -110,6 +107,9 @@ if($stepclaimcount > 0) {
 } else {
 	$steppercent = 0;
 }
+
+
+
 ?>
 <style>
 .dotactive {
@@ -227,8 +227,8 @@ $lastobj = $s->description;
 </div>
 
 <div class="progress progress-bar-striped stickyprogress" style="background-color: #F1F1F1; border-radius: 0; height: 18px;">
-		<div class="progress-bar bg-dark" role="progressbar" style="width: <?= $steppercent ?>%" aria-valuenow="<?= $steppercent ?>" aria-valuemin="0" aria-valuemax="100">
-		This step is <?= $steppercent ?>% done
+		<div class="progress-bar bg-dark" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+		This step is 0% done
 	  </div>
 </div>
 
@@ -243,17 +243,56 @@ $lastobj = $s->description;
 <div class="bg-white rounded-lg">
 <div class="p-3 mb-3 rounded-lg activity" 
 		style="background-color: rgba(<?= $activity->activity_type->color ?>,.2);">
+	
 
-	<?php if(!in_array($activity->id,$useractivitylist)): // if the user hasn't claimed this, then show them claim form ?>
-	<?= $this->Form->create(null, ['url' => ['controller' => 'activities-users','action' => 'claim'], 'class' => 'claim']) ?>
-	<?= $this->Form->control('activity_id',['type' => 'hidden', 'value' => $activity->id]) ?>
-	<?= $this->Form->button(__('Claim'),['class'=>'btn btn-dark', 'title' => 'If you\'ve completed this activity, claim it so it counts against your progress', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom']) ?>
-	<?= $this->Form->end() ?>
-	<?php else: // they have claimed it, so show that ?>
 
-	<div class="btn btn-dark" data-toggle="tooltip" data-placement="bottom" title="You have completed this activity. Great work!">CLAIMED <i class="fas fa-check-circle"></i></div>
-	<?php //$this->Form->postLink(__('Unclaim'), ['controller' => 'ActivitiesUsers','action' => 'delete/'. $activity->_joinData->id], ['class' => 'btn btn-dark', 'confirm' => __('Really delete?')]) ?>
-	<?php endif; // claimed or not ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="activity" id="activity-<?= $activity->id ?>">
+		<?php $idandtype = $activity->id . '-' . $activity->activity_type->id ?>
+		<a href="#" class="btn btn-dark btn-lg" id="followme" onclick="return claimit('<?= $idandtype ?>')">Claim <i class="far fa-check-circle"></i></a>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<h3 class="my-3">
 		<a href="/learning-curator/activities/view/<?= $activity->id ?>"><?= $activity->name ?></a>
@@ -261,12 +300,12 @@ $lastobj = $s->description;
 	</h3>
 	<div class="p-3" style="background: rgba(255,255,255,.3);">
 		<div class="mb-3">
-		<span class="badge badge-light" data-toggle="tooltip" data-placement="bottom" title="This activity should take <?= $activity->estimated_time ?> to complete">
+		<span class="badge rounded-pill bg-light text-dark" data-toggle="tooltip" data-placement="bottom" title="This activity should take <?= $activity->estimated_time ?> to complete">
 			<i class="fas fa-clock"></i>
 			<?php echo $this->Html->link($activity->estimated_time, ['controller' => 'Activities', 'action' => 'estimatedtime', $activity->estimated_time]) ?>
 		</span> 
 		<?php foreach($activity->tags as $tag): ?>
-		<a href="/learning-curator/tags/view/<?= h($tag->id) ?>" class="badge badge-light"><?= $tag->name ?></a> 
+		<a href="/learning-curator/tags/view/<?= h($tag->id) ?>" class="badge rounded-pill bg-light text-dark"><?= $tag->name ?></a> 
 		<?php endforeach ?>
 		</div>
 
@@ -340,53 +379,6 @@ $lastobj = $s->description;
 
 	<?php endif; // are there tags? ?>	
 
-
-	<a href="#newreport<?= $activity->id ?>" 
-			style="color:#333;" 
-			class="btn btn-light float-right" 
-			data-toggle="collapse" 
-			title="Report this activity for some reason" 
-			data-target="#newreport<?= $activity->id ?>" 
-			aria-expanded="false" 
-			aria-controls="newreport<?= $activity->id ?>">
-				<i class="fas fa-exclamation-triangle"></i> Report
-		</a>	
-		<div class="collapse" id="newreport<?= $activity->id ?>">
-		<div class="my-3 p-3 bg-white rounded-lg">
-		<?= $this->Form->create(null,['url' => ['controller' => 'reports','action' => 'add'],'class'=>'reportform']) ?>
-            <fieldset>
-                <legend><?= __('Report this activity') ?></legend>
-				<p>Is there something wrong with this activity? Tell us about it!</p>
-                <?php
-                    echo $this->Form->hidden('activity_id', ['value' => $activity->id]);
-                    echo $this->Form->hidden('user_id', ['value' => $uid]);
-                    echo $this->Form->textarea('issue',['class' => 'form-control', 'placeholder' => 'Type here ...']);
-                ?>
-            </fieldset>
-            <input type="submit" class="btn btn-dark" value="Submit Report">
-            <?= $this->Form->end() ?>
-		</div>
-		</div>
-	<a href="/learning-curator/activities/like/<?= h($activity->id) ?>" style="color:#333;" class="likingit btn btn-light float-left mr-1" data-toggle="tooltip" data-placement="bottom" title="Like this activity">
-		<span class="lcount"><?= h($activity->recommended) ?></span> <i class="fas fa-thumbs-up"></i>
-	</a>
-	<?php if(!in_array($activity->id,$userbooklist)): // if the user hasn't bookmarked this, then show them claim form ?>
-	<?= $this->Form->create(null,['url' => ['controller' => 'activities-bookmarks', 'action' => 'add'], 'class' => 'bookmark form-inline']) ?>
-		<?= $this->Form->hidden('activity_id',['value' => $activity->id]) ?>
-		<button class="btn btn-light"><i class="fas fa-bookmark"></i> Bookmark</button>
-		<?php //$this->Form->button(__('Bookmark'),['class' => 'btn btn-light']) ?>
-		<?= $this->Form->end() ?>
-	<?php else: ?>
-		<span class="btn btn-dark"><i class="fas fa-bookmark"></i> Bookmarked</span>
-	<?php endif ?>
-		<!--
-	<a href="#" style="color:#333;" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Report this activity for some reason">
-		<i class="fas fa-bookmark"></i> Bookmark
-	</a>-->
-
-
-
-
 	</div>
 	</div> <!-- whitebg -->
 
@@ -409,7 +401,7 @@ $lastobj = $s->description;
 		</h4>
 		<div class="p-2">
 			<div>
-				<span class="badge badge-light" data-toggle="tooltip" data-placement="bottom" title="This activity should take <?= $activity->estimated_time ?> to complete">
+				<span class="badge rounded-pill bg-light text-dark" data-toggle="tooltip" data-placement="bottom" title="This activity should take <?= $activity->estimated_time ?> to complete">
 					<i class="fas fa-clock"></i>
 					<?php echo $this->Html->link($activity->estimated_time, ['controller' => 'Activities', 'action' => 'estimatedtime', $activity->estimated_time]) ?>
 				</span> 
@@ -429,51 +421,7 @@ $lastobj = $s->description;
 
 			</a>
 		</div>
-		<div>
-		<a href="#newreport<?= $activity->id ?>" 
-			style="color:#333;" 
-			class="btn btn-light float-right" 
-			data-toggle="collapse" 
-			title="Report this activity for some reason" 
-			data-target="#newreport<?= $activity->id ?>" 
-			aria-expanded="false" 
-			aria-controls="newreport<?= $activity->id ?>">
-				<i class="fas fa-exclamation-triangle"></i> Report
-		</a>	
-		<div class="collapse" id="newreport<?= $activity->id ?>">
-		<div class="my-3 p-3 bg-white rounded-lg">
-		<?= $this->Form->create(null,['url' => ['controller' => 'reports','action' => 'add'],'class'=>'reportform']) ?>
-            <fieldset>
-                <legend><?= __('Report this activity') ?></legend>
-				<p>Is there something wrong with this activity? Tell us about it!</p>
-                <?php
-                    echo $this->Form->hidden('activity_id', ['value' => $activity->id]);
-                    echo $this->Form->hidden('user_id', ['value' => $uid]);
-                    echo $this->Form->textarea('issue',['class' => 'form-control', 'placeholder' => 'Type here ...']);
-                ?>
-            </fieldset>
-            <input type="submit" class="btn btn-dark" value="Submit Report">
-            <?= $this->Form->end() ?>
-		</div>
-		</div>
-		<a href="/learning-curator/activities/like/<?= h($activity->id) ?>" style="color:#333;" class="likingit btn btn-light float-left mr-1" data-toggle="tooltip" data-placement="bottom" title="Like this activity">
-			<span class="lcount"><?= h($activity->recommended) ?></span> <i class="fas fa-thumbs-up"></i>
-		</a>
-		<?php if(!in_array($activity->id,$userbooklist)): // if the user hasn't bookmarked this, then show them claim form ?>
-			<?= $this->Form->create(null,['url' => ['controller' => 'activities-bookmarks', 'action' => 'add'], 'class' => 'bookmark']) ?>
-			<?= $this->Form->hidden('activity_id',['value' => $activity->id]) ?>
-			<button class="btn btn-light"><i class="fas fa-bookmark"></i> Bookmark</button>
-			<?php //$this->Form->button(__('Bookmark'),['class' => 'btn btn-light']) ?>
-			<?= $this->Form->end() ?>
-		<?php else: ?>
-			<span class="btn btn-dark"><i class="fas fa-bookmark"></i> Bookmarked</span>
-		<?php endif ?>
 
-			<!--<a href="#" style="color:#333;" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Report this activity for some reason">
-				<i class="fas fa-bookmark"></i> Bookmark
-			</a>-->
-
-		</div>
 	</div>
 	</div>
 	<?php endforeach; // end of activities loop for this step ?>
@@ -482,24 +430,328 @@ $lastobj = $s->description;
 <?php endif ?>
 </div>
 <div class="col-8 col-md-3 col-lg-2">
-<?php if(in_array($uid,$usersonthispathway)): ?>
-<div class="p-3 bg-white mb-3 text-center stickyrings rounded-lg">
-<div class="mb-3 following"></div>
-<canvas id="myChart" width="250" height="250"></canvas>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- acitivity rings go here -->
+<div id="paths" style="display: none">
+	<a href="#" class="btn btn-dark btn-block btn-lg" id="followme" onclick="return followit()">Follow</a>
+	<div>
+		Following a pathway is a commitment to moving 
+		through each step and claiming each required activity as you complete it.
+		Fill your activity rings and get a certificate!
+	</div>
 </div>
-<?php else: ?>
-<div class="card card-body mt-3 text-center stickyrings">
-<?= $this->Form->create(null, ['url' => ['controller' => 'pathways-users','action' => 'add']]) ?>
-<?php
-echo $this->Form->control('user_id',['type' => 'hidden', 'value' => $uid]);
-echo $this->Form->control('pathway_id',['type' => 'hidden', 'value' => $pathways->id]);
-echo $this->Form->control('status_id',['type' => 'hidden', 'value' => 1]);
-?>
-<?= $this->Form->button(__('Follow this pathway'),['class' => 'btn btn-block btn-dark mb-0']) ?>
-<?= $this->Form->end() ?>
-</div>
-<?php endif ?>
-</div>
-</div>
+<div class="p-3 bg-white rounded-lg">
+<canvas id="activityrings" width="250" height="250"></canvas>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/pouchdb@7.2.1/dist/pouchdb.min.js"></script>
+<script>
+	//
+	// Initialize activity ring load on page load
+	//
+	//loadStatus();
+
+	// A list of all activity IDs from the *pathway*
+	// We use this list when we build the activity rings
+	var pathallactivities = '<?= rtrim($pathallactivities,',') ?>';
+
+	// A list of all activity IDs from this step
+	// We use this list when we compare it with IDs 
+	// that are listed in the localstore 
+	var stepactivitylist = '<?= rtrim($stepactivitylist,',') ?>';
+
+	// The PHP generated the comma-separated list
+	// now split into an array
+	var acts = pathallactivities.split(',');
+
+	// The pathway ID of this step
+	var pathwayid = <?= $pathid ?>;
+
+	// Open the localstore database
+	// #TODO sync this a remote database!
+	// If we're planning on synching this to a remote, that 
+	// this is where I'm going to absolutely need a session/unique id 
+	// variable to create a new database for each user; otherwise, 
+	// everyone is writing to the same datbase and if I claim something
+	// it's now claimed for you too.
+	// If we're going to create a unique DB for each user, we still
+	// need the unique ID as we'll have to store the value with 
+	// each entry and modify below not use a query instead of 
+	// db.allDocs()
+	var db = new PouchDB('curator-ta'); // http://localhost:5984/
+
+	// Start looping through each item in the localstore
+	// A record will either be a pathway or an activity
+	// so we just perform a simple check and update the UI 
+	// accordingly
+	var progress = 0;
+
+	var watchcolor = '<?= $watchcolor ?>';
+	var readcolor = '<?= $readcolor ?>';
+	var listencolor = '<?= $listencolor ?>';
+	var participatecolor = '<?= $participatecolor ?>';
+
+	var watchcount = 0;
+	var readcount = 0;
+	var listencount = 0;
+	var participatecount = 0;
+
+	//
+	// Loop through every row in the database and look at each;
+	// with a little logic, we build it all :) 
+	//
+	db.allDocs({include_docs: true, descending: true}, function(err, doc) {
+
+		doc.rows.forEach(function(e,index){
+
+			//
+			// Activities
+			// Take the list of all activities on this step and 
+			// break it in an array. Then loop through said array
+			// and compare each of the IDs against the ID from our
+			// localstore. If there's a match, then update the claim
+			// button to indicate you've already claimed.
+			// While we're looping through, we also build up the 
+			// var necessary to show the activity rings 
+			// #TODO implement unclaim
+			// 
+			acts.forEach(function(item, index, arr) {
+				if(e.doc['activity'] === item) {
+					let idandtype = item.split('-');
+					let iid = 'activity-' + idandtype[0];
+					if(document.getElementById(iid)) {
+						let newbutton = '<span class="btn btn-dark btn-lg">';
+						newbutton += 'Claimed ';
+						newbutton += '<i class="fas fa-check-circle">';
+						newbutton += '</span>';
+						document.getElementById(iid).innerHTML = newbutton;
+					}
+					if(idandtype[1] == 1) {
+						watchcount++;
+					} else if(idandtype[1] == 2) {
+						readcount++;
+					} else if(idandtype[1] == 3) {
+						listencount++;
+					} else if(idandtype[1] == 4) {
+						participatecount++;
+					}
+					progress++;
+				}
+			});
+			
+			//
+			// Pathways
+			// Compare the ID provided in the markup to the 
+			// ID in the localstore. If we're following this
+			// pathway, then update the UI to say so, otherwise
+			// we just show the default follow button that's 
+			// already in the markup
+			if(e.doc['pathway'] == pathwayid) {
+				document.getElementById("paths").innerHTML = '<h1>Following!</h1>';
+			} 
+
+		}); // end of db.allDocs()
+
+		var allwatch = <?= $allwatch ?>;
+		var allread = <?= $allread ?>;
+		var alllisten = <?= $alllisten ?>;
+		var allparticipate = <?= $allparticipate ?>;
+
+		var totalacts = acts.length;
+		var percent = (Number(progress) * 100) / Number(totalacts);
+		var percentleft = 100 - percent;
+
+		var watchpercent = (Number(watchcount) * 100) / Number(allwatch);
+		var watchpercentleft = 100 - watchpercent;
+
+		console.log('Total activities: ' + totalacts);
+		console.log('Activities claimed: ' + progress);
+		if(percent > 0) {
+			console.log('Percent done: ' + Math.ceil(percent));
+			console.log('Percent left: ' + Math.ceil(percentleft));
+		}
+		if(watchpercent > 0) {
+			console.log('Watch Percent done: ' + Math.ceil(watchpercent));
+			console.log('Watch Percent left: ' + Math.ceil(watchpercentleft));
+		}
+		document.getElementById("paths").style.display = 'block';
+
+		var chartdata = {"datasets": [
+				{"data": [53,47],"backgroundColor": ["rgba(249,145,80,1)","rgba(249,145,80,.2)"]},
+				{"data": [Math.ceil(watchpercent),Math.ceil(watchpercentleft)],"backgroundColor": ["rgba(193,129,183,1)","rgba(193,129,183,.2)"]},
+				{"data": [50,50],"backgroundColor": ["rgba(244,105,115,1)","rgba(244,105,115,.2)"]},
+				{"data": [37,63],"backgroundColor": ["rgba(255,218,96,1)","rgba(255,218,96,.2)"]}
+		]};
+
+		var ctx = document.getElementById('activityrings').getContext('2d');
+		var myDoughnutChart = new Chart(ctx, {
+			type: 'doughnut',
+			data: chartdata,
+			options: { 
+				legend: { 
+					display: false 
+				},
+			}
+		});
+
+
+
+	});
+
+	//
+	// When the user clicks on the "Follow this pathway" button
+	// this function fires and inserts the ID for the pathway
+	// into the localstore
+	//
+	function followit () {		
+		rightnow = new Date().getTime();
+		var doc = {
+			"_id": rightnow.toString(),
+			"date": rightnow.toString(),
+			"pathway": pathwayid,
+		};
+		db.put(doc);
+		document.getElementById("paths").innerHTML = '<h1>Following!</h1>';
+		return false;
+	};
+
+	//
+	// When the user clicks on the "Claim" button
+	// this function fires and inserts the ID for 
+	// activity into the localstore.
+	// We also update the UI immediately to indicate the claim.
+	// We are encoding both the activity ID and the its 
+	// associated activity type ID so that we can properly
+	// build the activity rings on each page 
+	//
+	function claimit (activityid) {	
+
+		// use a simple timestamp as the id	
+		rightnow = new Date().getTime();
+		var doc = {
+			"_id": rightnow.toString(),
+			"date": rightnow.toString(),
+			"activity": activityid,
+		};
+		db.put(doc);
+
+		// Now that we've put the activityid-activitytype code
+		// into the localstore, let's separate out the actual
+		// activity id from the activity type
+		var idandtype = activityid.split('-');
+		var iid = 'activity-' + idandtype[0];
+		newbutton = '<span class="btn btn-dark btn-lg">';
+		newbutton += 'Claimed ';
+		newbutton += '<i class="fas fa-check-circle"></i>';
+		newbutton += '</span> ';
+		newbutton += 'View all of your claims on <a href="#">your dashboard</a>';
+		document.getElementById(iid).innerHTML = newbutton;
+		return false;
+	};
+		
+
+
+
+
+
+
+
+
+
+
+function loadStatus() {
+	
+	var chartdata = {"datasets": [
+				{"data": [53,47],"backgroundColor": ["rgba(249,145,80,1)","rgba(249,145,80,.2)"]},
+				{"data": [75,25],"backgroundColor": ["rgba(193,129,183,1)","rgba(193,129,183,.2)"]},
+				{"data": [50,50],"backgroundColor": ["rgba(244,105,115,1)","rgba(244,105,115,.2)"]},
+				{"data": [37,63],"backgroundColor": ["rgba(255,218,96,1)","rgba(255,218,96,.2)"]}
+	]};
+
+	var ctx = document.getElementById('activityrings').getContext('2d');
+	var myDoughnutChart = new Chart(ctx, {
+		type: 'doughnut',
+		data: chartdata,
+		options: { 
+			legend: { 
+				display: false 
+			},
+		}
+	});
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	// //Creating remote database object
+	// 
+	
+	// var remoteDB = new PouchDB('http://localhost:5984/curator-ta');
+
+	// //Synchronising Remote and local databases
+	// db.sync(remoteDB, function(err, response) {
+	// 	if (err) {
+	// 		return console.log(err);
+	// 	} else {
+	// 		console.log(response);
+	// 	}
+	// });
+</script>

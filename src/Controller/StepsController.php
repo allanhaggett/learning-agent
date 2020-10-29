@@ -40,49 +40,43 @@ class StepsController extends AppController
                             'Activities.Tags', 
                             'Pathways', 
                             'Pathways.Steps',
+                            'Pathways.Steps.Activities',
                             'Pathways.Categories', 
                             'Pathways.Users'],
         ]);
         $this->Authorization->authorize($step);
         $user = $this->request->getAttribute('authentication')->getIdentity();
-        // We need create an empty array first. If nothing gets added to
-        // it, so be it
-        $useractivitylist = array();
-        $userbooklist = array();
-        // Get access to the apprprioate table
-        $au = TableRegistry::getTableLocator()->get('ActivitiesUsers');
-        $books = TableRegistry::getTableLocator()->get('ActivitiesBookmarks');
-        // Select based on currently logged in person
-        $useacts = $au->find()->where(['user_id = ' => $user->id]);
-        $userbooks = $books->find()->where(['user_id = ' => $user->id]);
-        // convert the results into a simple array so that we can
-        // use in_array in the template
-        $useractivities = $useacts->toList();
-        $userbookmarks = $userbooks->toList();
-        // Loop through the resources and add just the ID to the 
-        // array that we will pass into the template
-        foreach($useractivities as $uact) {
-            array_push($useractivitylist, $uact['activity_id']);
-        }
-        foreach($userbookmarks as $b) {
-            array_push($userbooklist, $b['activity_id']);
-        }
-        //
-        // we want to be able to tell if the current user is already on this
-        // pathway or not, so we take the same approach as above, parsing all
-        // the users into a single array so that we can perform a simple
-        // in_array($thisuser,$usersonthispathway) check and show the "take
-        // this Pathway" button or "you're on this Pathway" text
-        //
-        // Create the initially empty array that we also pass into the template
-        $usersonthispathway = array();
-        // Loop through the users that are on this pathway and parse just the 
-        // IDs into the array that we just created
-        foreach($step->pathways[0]->users as $pu) {
-            array_push($usersonthispathway,$pu->id);
-        }
 
-        $this->set(compact('step','useractivitylist','usersonthispathway', 'userbooklist'));
+        //
+        // We need a list of all the activity IDs in the entire 
+        // pathway (not just this step) so that we can build the
+        // activity rings.
+        // 
+        $pathid = $step->pathways[0]->id;
+        $pathallactivities = '';
+        $allstepacts = $step->pathways[0]->steps;
+        $allwatch = 0;
+        $allread = 0;
+        $alllisten = 0;
+        $allparticipate = 0;
+        foreach($allstepacts as $s) {
+            foreach($s->activities as $a) {
+                $pathallactivities .= $a->id . '-' . $a->activity_types_id . ',';
+                if($a->status_id == 2) {
+                    if($a->activity_types_id == 1) {
+                        $allwatch++;
+                    } elseif($a->activity_types_id == 2) {
+                        $allread++;
+                    } elseif($a->activity_types_id == 3) {
+                        $alllisten++;
+                    } elseif($a->activity_types_id == 4) {
+                        $allparticipate++;
+                    }
+                }
+            }
+        }
+        
+        $this->set(compact('step','pathid','pathallactivities','allwatch','allread','alllisten','allparticipate'));
     }
 
     /**

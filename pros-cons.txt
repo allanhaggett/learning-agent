@@ -12,7 +12,7 @@ Moodle
         Existing documentation
     Cons
         Expansion of activity types
-        Existing documentation means can't stray too far for themeing options
+        Existing documentation means can't stray too far for themeing options? thi gets complicated; can change
 
 
 Curator CMS

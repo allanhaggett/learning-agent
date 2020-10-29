@@ -14,8 +14,53 @@ if ($this->Identity->isLoggedIn()) {
 }
 $totalusers = count($usersonthispathway);
 $this->assign('title', h($pathway->name));
+$activitylist = '';
+foreach ($pathway->steps as $steps) {
 
+	$stepTime = 0;
+	$defunctacts = array();
+	$requiredacts = array();
+	$supplementalacts = array();
+	$acts = array();
+	
+	$readstepcount = 0;
+	$watchstepcount = 0;
+	$listenstepcount = 0;
+	$participatestepcount = 0;
+	$readcolor = '';
+	$watchcolor = '';
+	$listencolor = '';
+	$participatecolor = '';
+	
+	$stepclaimcount = 0;
+	
+	foreach ($steps->activities as $activity) {
+		//print_r($activity);
+		// If this is 'defunct' then we pull it out of the list 
+		if($activity->status_id == 3) {
+			array_push($defunctacts,$activity);
+		} elseif($activity->status_id == 2) {
+			
+			array_push($acts,$activity);
+			// if it's required
+			if($activity->_joinData->required == 1) {
+				array_push($requiredacts,$activity);
+	
+			// Otherwise it's supplemental
+			} else {
+				array_push($supplementalacts,$activity);
+			}
+			
+			$activitylist .= $activity->id . ',';
+			
+		}
+	}
+	$totalacts = count($steps->activities);
+
+}
 ?>
+
+
 <style>
 /* Start desktop-specific code for this page.
 Arbitrarily set to 45em based on sample code from ...somewhere. 
@@ -59,6 +104,9 @@ This seems to work out, but #TODO investigate optimizing this
 	color: #333;
 }
 </style>
+
+
+
 <div class="container-fluid">
 <div class="row justify-content-md-center" id="colorful">
 <div class="col-md-6">
@@ -82,18 +130,16 @@ This seems to work out, but #TODO investigate optimizing this
 	<?php endif ?>
 	<h1><?= h($pathway->name) ?></h1>
 
-	<!-- totals below updated via JS -->
-
 	<div class="py-3" style="background-color: rgba(255,255,255,.5)">
 	<?= $pathway->objective ?> 
 	
 	<div class="my-2"><em>Estimated time for this pathway: <?= h($pathway->estimated_time) ?></em></div>
 
 	<div class="mb-2">
-	<span class="badge badge-light readtotal"></span>  
-	<span class="badge badge-light watchtotal"></span>  
-	<span class="badge badge-light listentotal"></span>  
-	<span class="badge badge-light participatetotal"></span>  
+		<span class="badge badge-light readtotal"></span>  
+		<span class="badge badge-light watchtotal"></span>  
+		<span class="badge badge-light listentotal"></span>  
+		<span class="badge badge-light participatetotal"></span>  
 	</div>
 	
 	<?php if($role == 2 || $role == 5): ?>
@@ -163,56 +209,34 @@ This seems to work out, but #TODO investigate optimizing this
 <?php endif ?>
 <div class="col-6 col-md-3 col-lg-2">
 
-<?php if(in_array($uid,$usersonthispathway)): ?>
 
-	
-	<div class="card card-body mt-3 text-center stickyrings">
-	<div>Overall Progress: <span class="mb-3 following"></span>%</div>
-	<canvas id="myChart" width="250" height="250"></canvas>
-	</div>
-	
-<?php else: ?>
-<div class="card card-body my-3 stickyrings">
-<?= $this->Form->create(null, ['url' => ['controller' => 'pathways-users','action' => 'add']]) ?>
-<?php
-    echo $this->Form->control('user_id',['type' => 'hidden', 'value' => $uid]);
-    echo $this->Form->control('pathway_id',['type' => 'hidden', 'value' => $pathway->id]);
-    echo $this->Form->control('status_id',['type' => 'hidden', 'value' => 1]);
-?>
-<?= $this->Form->button(__('Follow this pathway'),['class' => 'btn btn-block btn-dark mb-0']) ?>
-
-<?= $this->Form->end() ?>
 <div class="py-3">
 
-<div>Following a pathway is a commitment to moving 
-through each step and claiming each required activity as you complete it.
-Fill your activity rings and get a certificate!
+<div id="paths" style="display: none">
+	<a href="#" class="btn btn-dark btn-block btn-lg" id="followme" onclick="return followit()">Follow</a>
+	<div>
+		Following a pathway is a commitment to moving 
+		through each step and claiming each required activity as you complete it.
+		Fill your activity rings and get a certificate!
+	</div>
 </div>
+
+
+
 <!--When you select to follow a pathway, this pathway will show as a journey you are on and may be 
 accessed from your profile page. Think of it as “bookmarking” learning you want to come back to and track your progress on.-->
 
-</div>
-</div>
-<?php endif ?>
 
 <!--<div class="" style="font-size: 12px">Published <?= h(date('D M jS \'y',strtotime($pathway->created))) ?></div>-->
 
-
+</div>
 </div>
 <?php if (!empty($pathway->steps)) : ?>
 
 <div class="col-md-6 col-lg-4">
 
-<?php foreach ($pathway->steps as $steps) : ?>
-
-<?php 
-
-$stepTime = 0;
-$defunctacts = array();
-$requiredacts = array();
-$supplementalacts = array();
-$acts = array();
-
+<?php foreach($pathway->steps as $steps): ?>
+<?php
 $readstepcount = 0;
 $watchstepcount = 0;
 $listenstepcount = 0;
@@ -221,68 +245,23 @@ $readcolor = '';
 $watchcolor = '';
 $listencolor = '';
 $participatecolor = '';
-
-$totalacts = count($steps->activities);
-$stepclaimcount = 0;
-
 foreach ($steps->activities as $activity) {
-	//print_r($activity);
-	// If this is 'defunct' then we pull it out of the list 
-	if($activity->status_id == 3) {
-		array_push($defunctacts,$activity);
-	} elseif($activity->status_id == 2) {
-		// if it's required
-		if($activity->_joinData->required == 1) {
-			array_push($requiredacts,$activity);
-
-		// Otherwise it's supplemental
-		} else {
-			array_push($supplementalacts,$activity);
-		}
-		array_push($acts,$activity);
-		if($activity->activity_types_id == 1) {
-			$watchstepcount++;
-			$watchcolor = $activity->activity_type->color;
-		} elseif($activity->activity_types_id == 2) {
-			$readstepcount++;
-			$readcolor = $activity->activity_type->color;
-		} elseif($activity->activity_types_id == 3) {
-			$listenstepcount++;
-			$listencolor = $activity->activity_type->color;
-		} elseif($activity->activity_types_id == 4) {
-			$participatestepcount++;
-			$participatecolor = $activity->activity_type->color;
-		}
-		if(in_array($activity->id,$useractivitylist)) {
-			$stepclaimcount++;
-		}
-		$tmp = array();
-		// Loop through the whole list, add steporder to tmp array
-		foreach($acts as $line) {
-			$tmp[] = $line->_joinData->steporder;
-		}
-		// Use the tmp array to sort acts list
-		array_multisort($tmp, SORT_DESC, $acts);
+	if($activity->activity_types_id == 1) {
+		$watchstepcount++;
+		$watchcolor = $activity->activity_type->color;
+	} elseif($activity->activity_types_id == 2) {
+		$readstepcount++;
+		$readcolor = $activity->activity_type->color;
+	} elseif($activity->activity_types_id == 3) {
+		$listenstepcount++;
+		$listencolor = $activity->activity_type->color;
+	} elseif($activity->activity_types_id == 4) {
+		$participatestepcount++;
+		$participatecolor = $activity->activity_type->color;
 	}
-}
 
-?>
-
-<?php
-$stepacts = count($requiredacts);
-$supplmentalcount = count($supplementalacts);
-$completeclass = 'notcompleted'; 
-if($stepclaimcount == $totalacts) {
-	$completeclass = 'completed';
-}
-
-if($stepclaimcount > 0) {
-	$steppercent = ceil(($stepclaimcount * 100) / $stepacts);
-} else {
-	$steppercent = 0;
 }
 ?>
-
 <div class="p-3 my-3 bg-white rounded-lg">
 	<h2>
 
@@ -291,13 +270,12 @@ if($stepclaimcount > 0) {
 			<i class="fas fa-arrow-circle-right"></i>
 		</a>
 	</h2>
-	
 	<div style="font-size; 130%"><?= $steps->description ?></div>
-	
+
 	<div class="my-3">
-			<span class="badge rounded-pill bg-light text-dark"><?= $totalacts ?> total activities</span> 
+			<!-- <span class="badge rounded-pill bg-light text-dark"><?= $totalacts ?> total activities</span> 
 			<span class="badge rounded-pill bg-light text-dark"><?= $stepacts ?> required</span>
-			<span class="badge rounded-pill bg-light text-dark"><?= $supplmentalcount ?> supplemental</span>
+			<span class="badge rounded-pill bg-light text-dark"><?= $supplmentalcount ?> supplemental</span> -->
 			<span class="badge rounded-pill bg-light text-dark" style="background-color: rgba(<?= $readcolor ?>,1) !important">
 				<?= $readstepcount ?> to read
 			</span>  
@@ -311,13 +289,7 @@ if($stepclaimcount > 0) {
 				<?= $participatestepcount ?> to participate in
 			</span>  
 		</div>
-		
-	<div class="progress progress-bar-striped mb-3" style="background-color: #F1F1F1; height: 26px;">
-	  <div class="progress-bar" role="progressbar" style="background-color: rgba(88,174,36,.8); color: #FFF; width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-		% completed
-	  </div>
-	</div>
-	
+
 </div>
 <?php endforeach ?>
 
@@ -330,3 +302,73 @@ if($stepclaimcount > 0) {
 </div>
 
 </div>
+
+
+<script src="//cdn.jsdelivr.net/npm/pouchdb@7.2.1/dist/pouchdb.min.js"></script>
+<script>
+
+	var pathwayid = <?= $pathway->id ?>;
+	var activitylist = '<?= $activitylist ?>';
+	// The PHP generated the comma-separated list
+	// now split into an array
+	var acts = activitylist.split(',');
+
+	var db = new PouchDB('curator-ta'); // http://localhost:5984/
+	var count = 0;
+
+	db.allDocs({include_docs: true, descending: true}, function(err, doc) {
+		//
+		// Pathways
+		// Compare the ID provided in the markup to the 
+		// ID in the localstore. If we're following this
+		// pathway, then update the UI to say so, otherwise
+		// we just show the default follow button that's 
+		// already in the markup
+		//
+		doc.rows.forEach(function(e,index){
+			if(e.doc['pathway'] == pathwayid) {
+				document.getElementById("paths").innerHTML = '<h1>Following!</h1>';
+			}
+
+
+			//
+			// Activities
+			//
+			acts.forEach(function(item, index, arr) {
+				if(e.doc['activity'] == item) {
+					count++;
+				}
+			});
+			
+		});
+		console.log(count);
+		document.getElementById("paths").style.display = 'block';
+		
+	});
+
+	function followit () {		
+		rightnow = new Date().getTime();
+		var doc = {
+			"_id": rightnow.toString(),
+			"date": rightnow.toString(),
+			"pathway": pathwayid,
+		};
+		db.put(doc);
+		document.getElementById("paths").innerHTML = '<h1>Following!</h1>';
+		return false;
+	};
+
+
+
+//Creating remote database object
+var remoteDB = new PouchDB('http://localhost:5984/curator-ta');
+//Synchronising Remote and local databases
+db.sync(remoteDB, function(err, response) {
+   if (err) {
+      return console.log(err);
+   } else {
+      console.log('huzzah');
+   }
+});
+
+</script>
