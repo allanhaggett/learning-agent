@@ -187,11 +187,11 @@ This seems to work out, but #TODO investigate optimizing this
 <div class="col-6 col-md-3 col-lg-2">
 
 
-<div class="py-3">
+<div class="py-3 stickyrings">
 
-<div id="paths" style="display: none">
+<div id="paths" style="display: none" >
 	<a href="#" class="btn btn-dark btn-block btn-lg" id="followme" onclick="return followit()">Follow</a>
-	<div>
+	<div class="bg-light rounded-lg p-3 mt-3">
 		Following a pathway is a commitment to moving 
 		through each step and claiming each required activity as you complete it.
 		Fill your activity rings and get a certificate!

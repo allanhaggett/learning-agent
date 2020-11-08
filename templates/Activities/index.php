@@ -60,20 +60,12 @@ if ($this->Identity->isLoggedIn()) {
 	<?php foreach($activity->steps as $step): ?>
 	<?php foreach($step->pathways as $path): ?>
 	<?php if($path->status_id == 2): ?>
-	<span class="badge badge-light"><a href="/learning-curator/steps/view/<?= $step->id ?>"><?= $path->name ?> - <?= $step->name ?></a></span>
+	<span class="badge badge-light"><a href="/learning-curator/pathways/<?= $path->slug ?>/step/<?= $step->id ?>"><?= $path->name ?> - <?= $step->name ?></a></span>
 	<?php endif ?>
 	<?php endforeach ?>
 	<?php endforeach ?>
 	</div>
-	<?php if(!in_array($activity->id,$userbooklist)): // if the user hasn't bookmarked this, then show them claim form ?>
-	<?= $this->Form->create(null,['url' => ['controller' => 'activities-bookmarks', 'action' => 'add'], 'class' => 'bookmark form-inline']) ?>
-		<?= $this->Form->hidden('activity_id',['value' => $activity->id]) ?>
-		<button class="btn btn-dark"><i class="fas fa-bookmark"></i> Bookmark</button>
-		<?php //$this->Form->button(__('Bookmark'),['class' => 'btn btn-light']) ?>
-		<?= $this->Form->end() ?>
-	<?php else: ?>
-		<span class="btn btn-dark"><i class="fas fa-bookmark"></i> Bookmarked</span>
-	<?php endif ?>
+	
 	<div class="mt-3"><span class="badge badge-light">Added: <?= h($activity->created) ?></span></div>
 
 </div>

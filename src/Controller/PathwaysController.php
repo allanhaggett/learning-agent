@@ -257,7 +257,7 @@ class PathwaysController extends AppController
             $pathway = $this->Pathways->patchEntity($pathway, $this->request->getData());
             if ($this->Pathways->save($pathway)) {
                 print(__('The pathway has been saved.'));
-                $pathback = '/pathways/view/' . $id;
+                $pathback = '/pathways/' . $pathway->slug;
                 return $this->redirect($pathback);
             }
             print(__('The pathway could not be saved. Please, try again.'));

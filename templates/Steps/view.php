@@ -387,14 +387,14 @@ $lastobj = $s->description;
 <!-- acitivity rings go here -->
 <div id="paths" style="display: none">
 	<a href="#" class="btn btn-dark btn-block btn-lg" id="followme" onclick="return followit()">Follow</a>
-	<div>
+	<div class="bg-light rounded-lg p-3 mt-3">
 		Following a pathway is a commitment to moving 
 		through each step and claiming each required activity as you complete it.
 		Fill your activity rings and get a certificate!
 	</div>
 </div>
 <div class="p-3 bg-white rounded-lg stickyrings">
-<canvas id="activityrings" width="250" height="250"></canvas>
+	<canvas id="activityrings" width="250" height="250"></canvas>
 </div>
 
 
@@ -472,10 +472,18 @@ function loadStatus() {
 			// #TODO implement unclaim
 			// 
 			acts.forEach(function(item, index, arr) {
+				
 				// Does the ID in the localstore equal an ID from the path?
 				if(e.doc['activity'] === item) {
+					
+					// The code is the activityID-activityTypeID e.g. 231-2 
+					// where 232 is the acitivity and the 2 is the activity type
 					let idandtype = item.split('-');
+
+					// Use the activity ID so that we can target the cooresponding
+					// dom id and update things accordingly
 					let iid = 'activity-' + idandtype[0];
+				
 					// Does the activity appear on this page? If so, 
 					// update the UI to show it's claimed
 					if(document.getElementById(iid)) {
@@ -485,6 +493,7 @@ function loadStatus() {
 						newbutton += '</span>';
 						document.getElementById(iid).innerHTML = newbutton;
 					}
+
 					// Look at the activity type and update our type counts
 					// This is hard-coded for the time being. If we want to expand
 					// beyond 4 activity types, we may want to look at doing this
@@ -498,6 +507,8 @@ function loadStatus() {
 					} else if(idandtype[1] == 4) {
 						participatecount++;
 					}
+
+					// Update the overall progress counter
 					overallprogress++;
 				}
 			});
@@ -572,15 +583,19 @@ function loadStatus() {
 // this function fires and inserts the ID for the pathway
 // into the localstore
 //
-function followit () {		
+function followit () {	
+
 	rightnow = new Date().getTime();
+
 	var doc = {
 		"_id": rightnow.toString(),
 		"date": rightnow.toString(),
 		"pathway": pathwayid,
 	};
 	db.put(doc);
+
 	document.getElementById("paths").innerHTML = '<h1>Following!</h1>';
+
 	return false;
 }
 
@@ -613,17 +628,12 @@ function claimit (activityid) {
 	newbutton += 'Claimed ';
 	newbutton += '<i class="fas fa-check-circle"></i>';
 	newbutton += '</span> ';
-	newbutton += 'View all of your claims on <a href="#">your dashboard</a>';
+	//newbutton += 'View all of your claims on <a href="#">your dashboard</a>';
 	document.getElementById(iid).innerHTML = newbutton;
 
 	loadStatus();
 
 	return false;
 }
-		
-
-
-
-
 
 </script>

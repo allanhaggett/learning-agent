@@ -74,6 +74,8 @@ $routes->scope('/', function (RouteBuilder $builder) {
      */
     $builder->connect('/pathways/*', ['controller' => 'Pathways', 'action' => 'view']);
     $builder->connect('/pathways/{slug}/step/*', ['controller' => 'Steps', 'action' => 'view']);
+    $builder->connect('/pathways/edit/*', ['controller' => 'Pathways', 'action' => 'edit']);
+    $builder->connect('/pathways/make', ['controller' => 'Pathways', 'action' => 'make']);
 
     /*
      * Connect catchall routes for all controllers.
