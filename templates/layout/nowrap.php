@@ -66,7 +66,11 @@ if ( strpos($_SERVER['HTTP_USER_AGENT'], 'rv:11.0')     !== false
 <nav class="navbar navbar-expand-lg sticky-top bg-white px-3">
 	
 	<a class="navbar-brand" href="/learning-curator/">
-	<img class="animate__animated animate__rotateIn" alt="Logo" height="50" src="/learning-curator/img/curator-rings-logo.svg" width="50">
+		<img class="animate__animated animate__rotateIn d-inline-block" 
+				alt="Logo" 
+				height="50" 
+				src="/learning-curator/img/curator-rings-logo.svg" 
+				width="50">
 		Learning Curator
 	</a>
 
@@ -82,20 +86,21 @@ if ( strpos($_SERVER['HTTP_USER_AGENT'], 'rv:11.0')     !== false
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 	<ul class="navbar-nav mr-auto">
-	<li class="nav-item dropdown">
-		<a class="nav-link dropdown-toggle" href="#" id="pathwaysDropdown" 
-			role="button" 
-			data-toggle="dropdown" 
-			aria-haspopup="true" 
-			aria-expanded="false">
-				Your Profile
-		</a>
-		<div class="dropdown-menu" aria-labelledby="pathwaysDropdown">
-			<a class="dropdown-item" href="/learning-curator/users/pathways">Pathways</a>
-			<a class="dropdown-item" href="/learning-curator/users/bookmarks">Bookmarks</a>
-			<a class="dropdown-item" href="/learning-curator/users/claimed">Claimed</a>
-			<a class="dropdown-item" href="/learning-curator/users/reports">Reports</a>
-		</div>
+		<li class="nav-item">
+			<a class="nav-link" href="/learning-curator/activities">Latest</a>
+		</li>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="pathwaysDropdown" 
+				role="button" 
+				data-toggle="dropdown" 
+				aria-haspopup="true" 
+				aria-expanded="false">
+					Dashboard
+			</a>
+			<div class="dropdown-menu" aria-labelledby="pathwaysDropdown">
+				<a class="dropdown-item" href="/learning-curator/users/pathways">Pathways</a>
+				<a class="dropdown-item" href="/learning-curator/users/claimed">Claimed</a>
+			</div>
 		</li>
 		<li class="nav-item dropdown">
 		<a class="nav-link dropdown-toggle" href="#" id="pathwaysDropdown" 
@@ -111,9 +116,7 @@ if ( strpos($_SERVER['HTTP_USER_AGENT'], 'rv:11.0')     !== false
 			<a class="dropdown-item" href="/learning-curator/categories/view/2">Role Specific</a>
 		</div>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="/learning-curator/activities">Latest</a>
-		</li>
+
 		<li class="nav-item">
 			<a class="nav-link" href="/learning-curator/pages/howto">How To Use</a>
 		</li>
@@ -126,50 +129,50 @@ if ( strpos($_SERVER['HTTP_USER_AGENT'], 'rv:11.0')     !== false
 		<?php if(!empty($active)): ?>
 		<?php if($active->role_id == 5): ?>
 		<li class="nav-item dropdown">
-		<a class="nav-link dropdown-toggle" href="#" id="adminDropdown" 
-			role="button" 
-			data-toggle="dropdown" 
-			aria-haspopup="true" 
-			aria-expanded="false">
-				View
-		</a>
-		<div class="dropdown-menu" aria-labelledby="adminDropdown">
-			<a class="dropdown-item" href="/learning-curator/pathways">All Pathways</a>
-			<a class="dropdown-item" href="/learning-curator/activity-types">Activity Types</a>
-			<a class="dropdown-item" href="/learning-curator/activities">All Activities</a>
-			<a class="dropdown-item" href="/learning-curator/users/list">All Users</a>
-			<a class="dropdown-item" href="/learning-curator/competencies">All Competencies</a>
-			<a class="dropdown-item" href="/learning-curator/ministries">All Ministries</a>
-			<a class="dropdown-item" href="/learning-curator/categories">All Categories</a>
-			<a class="dropdown-item" href="/learning-curator/statuses">All Statuses</a>
-			<a class="dropdown-item" href="/learning-curator/tags">All Tags</a>
-			
-		</div>
+			<a class="nav-link dropdown-toggle" href="#" id="adminDropdown" 
+				role="button" 
+				data-toggle="dropdown" 
+				aria-haspopup="true" 
+				aria-expanded="false">
+					View
+			</a>
+			<div class="dropdown-menu" aria-labelledby="adminDropdown">
+				<a class="dropdown-item" href="/learning-curator/pathways">All Pathways</a>
+				<a class="dropdown-item" href="/learning-curator/activity-types">Activity Types</a>
+				<a class="dropdown-item" href="/learning-curator/activities">All Activities</a>
+				<a class="dropdown-item" href="/learning-curator/users/list">All Users</a>
+				<a class="dropdown-item" href="/learning-curator/competencies">All Competencies</a>
+				<a class="dropdown-item" href="/learning-curator/ministries">All Ministries</a>
+				<a class="dropdown-item" href="/learning-curator/categories">All Categories</a>
+				<a class="dropdown-item" href="/learning-curator/statuses">All Statuses</a>
+				<a class="dropdown-item" href="/learning-curator/tags">All Tags</a>
+				
+			</div>
 		</li>
 		<?php endif ?>
 		<?php if($active->role_id == 5 || $active->role_id == 2): ?>
         <li class="nav-item dropdown">
-		<a class="nav-link dropdown-toggle" href="#" id="adminAddDropdown" 
-			role="button" 
-			data-toggle="dropdown" 
-			aria-haspopup="true" 
-			aria-expanded="false">
-				Add
-		</a>
-		<div class="dropdown-menu" aria-labelledby="adminAddDropdown">
-			<a class="dropdown-item" href="/learning-curator/categories/add">Add a Category</a>
-			<a class="dropdown-item" href="/learning-curator/topics/add">Add a Topic</a>
-			<a class="dropdown-item" href="/learning-curator/pathways/add">Add a Pathway</a>
-			<a class="dropdown-item" href="/learning-curator/activities/add">Add an Activity</a>
-			<a class="dropdown-item" href="/learning-curator/tags/add">Add a Tag</a>
-			<?php if($active->role_id == 5): ?>
-			<a class="dropdown-item" href="/learning-curator/activity-types/add">Add a Type</a>
-			<a class="dropdown-item" href="/learning-curator/users/add">Add a User</a>
-			<a class="dropdown-item" href="/learning-curator/competencies/add">Add a Competency</a>
-			<a class="dropdown-item" href="/learning-curator/ministries/add">Add a Ministry</a>
-			<a class="dropdown-item" href="/learning-curator/statuses/add">Add a Status</a>
-			<?php endif ?>
-		</div>
+			<a class="nav-link dropdown-toggle" href="#" id="adminAddDropdown" 
+				role="button" 
+				data-toggle="dropdown" 
+				aria-haspopup="true" 
+				aria-expanded="false">
+					Add
+			</a>
+			<div class="dropdown-menu" aria-labelledby="adminAddDropdown">
+				<a class="dropdown-item" href="/learning-curator/categories/add">Add a Category</a>
+				<a class="dropdown-item" href="/learning-curator/topics/add">Add a Topic</a>
+				<a class="dropdown-item" href="/learning-curator/pathways/add">Add a Pathway</a>
+				<a class="dropdown-item" href="/learning-curator/activities/add">Add an Activity</a>
+				<a class="dropdown-item" href="/learning-curator/tags/add">Add a Tag</a>
+				<?php if($active->role_id == 5): ?>
+				<a class="dropdown-item" href="/learning-curator/activity-types/add">Add a Type</a>
+				<a class="dropdown-item" href="/learning-curator/users/add">Add a User</a>
+				<a class="dropdown-item" href="/learning-curator/competencies/add">Add a Competency</a>
+				<a class="dropdown-item" href="/learning-curator/ministries/add">Add a Ministry</a>
+				<a class="dropdown-item" href="/learning-curator/statuses/add">Add a Status</a>
+				<?php endif ?>
+			</div>
 		</li>
 		<?php endif ?>
 		<?php endif ?>

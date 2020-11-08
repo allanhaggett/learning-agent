@@ -33,6 +33,7 @@ $allparticipatestepcount = 0;
 
 $totalacts = count($step->activities);
 $stepclaimcount = 0;
+$stepactivitylist = '';
 
 foreach ($step->activities as $activity) {
 	$stepname = '';
@@ -129,7 +130,7 @@ if($stepclaimcount > 0) {
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb mt-3">
   	<li class="breadcrumb-item"><?= $pathways->has('category') ? $this->Html->link($pathways->category->name, ['controller' => 'Categories', 'action' => 'view', $pathways->category->id]) : '' ?></li>
-	<li class="breadcrumb-item"><a href="/learning-curator/pathways/view/<?= $pathways->id ?>"><?= h($pathways->name) ?></a></li>
+	<li class="breadcrumb-item"><a href="/learning-curator/pathways/<?= $pathways->slug ?>"><?= h($pathways->name) ?></a></li>
 	<!--<li class="breadcrumb-item" aria-current="page"><?= h($pathways->steps[0]->name) ?> </li>-->
   </ol>
 </nav> 
@@ -178,11 +179,11 @@ if($stepclaimcount > 0) {
 	</div>
 	<div class="col-2">
 		<?php if(!empty($laststep)): ?>
-		<a href="/learning-curator/steps/view/<?= $laststep ?>" style="color: #000; font-size: 250%;"><i class="fas fa-arrow-circle-left"></i></a>
+		<a href="/learning-curator/pathways/<?= $pathways->slug ?>/step/<?= $laststep ?>" style="color: #000; font-size: 250%;"><i class="fas fa-arrow-circle-left"></i></a>
 		<?php endif ?>
 
 		<?php if(!empty($n->id)): ?>
-		<a href="/learning-curator/steps/view/<?= $n->id ?>" class="nextstep" style="color: #000; font-size: 250%; float: right;"><i class="fas fa-arrow-circle-right"></i></a>
+		<a href="/learning-curator/pathways/<?= $pathways->slug ?>/step/<?= $n->id ?>" class="nextstep" style="color: #000; font-size: 250%; float: right;"><i class="fas fa-arrow-circle-right"></i></a>
 		<?php endif ?>
 		
 	</div>
@@ -200,7 +201,7 @@ $lastobj = $s->description;
 <?php foreach($pathways->steps as $s): ?>
 	<?php $c = 'dot' ?>
 	<?php if($s->id == $step->id) $c = 'dotactive' ?>
-	<a href="/learning-curator/steps/view/<?= $s->id ?>">
+	<a href="/learning-curator/pathways/<?= $pathways->slug ?>/step/<?= $s->id ?>">
 		<i class="fas fa-dot-circle <?= $c ?>" title="Step <?= $count ?>"></i>
 	</a>
 <?php $count++ ?>
@@ -485,6 +486,9 @@ function loadStatus() {
 						document.getElementById(iid).innerHTML = newbutton;
 					}
 					// Look at the activity type and update our type counts
+					// This is hard-coded for the time being. If we want to expand
+					// beyond 4 activity types, we may want to look at doing this
+					// properly. For the time being, it is what it is.
 					if(idandtype[1] == 1) {
 						watchcount++;
 					} else if(idandtype[1] == 2) {
@@ -539,22 +543,10 @@ function loadStatus() {
 
 		var chartdata = {
 			"datasets": [
-				{
-					"data": [readpercent,readleft],
-					"backgroundColor": ["rgba(" + readcolor + ",1)","rgba(" + readcolor + ",.2)"]
-				},
-				{
-					"data": [watchpercent,watchleft]
-					"backgroundColor": ["rgba(" + watchcolor + ",1)","rgba(" + watchcolor + ",.2)"]
-				},
-				{
-					"data": [listenpercent,listenleft],
-					"backgroundColor": ["rgba(" + listencolor + ",1)","rgba(" + listencolor + ",.2)"]
-				},
-				{
-					"data": [participatepercent,partleft],
-					"backgroundColor": ["rgba(" + participatecolor + ",1)","rgba(" + participatecolor + ",.2)"]
-				}
+				{"data": [readpercent,readleft],"backgroundColor": ["rgba(" + readcolor + ",1)","rgba(" + readcolor + ",.2)"]},
+				{"data": [watchpercent,watchleft],"backgroundColor": ["rgba(" + watchcolor + ",1)","rgba(" + watchcolor + ",.2)"]},
+				{"data": [listenpercent,listenleft],"backgroundColor": ["rgba(" + listencolor + ",1)","rgba(" + listencolor + ",.2)"]},
+				{"data": [participatepercent,partleft],"backgroundColor": ["rgba(" + participatecolor + ",1)","rgba(" + participatecolor + ",.2)"]}
 			],
 			"labels": ["Completed %","In progress %"]
 		};
@@ -573,7 +565,7 @@ function loadStatus() {
 	});
 
 	
-} // end of loadStatus()
+}
 
 //
 // When the user clicks on the "Follow this pathway" button

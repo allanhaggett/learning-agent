@@ -60,10 +60,10 @@ class StepsController extends AppController
         $allread = 0;
         $alllisten = 0;
         $allparticipate = 0;
-        $watchcolor = '';
-        $readcolor = '';
-        $listencolor = '';
-        $participatecolor = '';
+        $watchcolor = '255,255,255';
+        $readcolor = '255,255,255';
+        $listencolor = '255,255,255';
+        $participatecolor = '255,255,255';
         
         foreach($allstepacts as $s) {
             foreach($s->activities as $a) {

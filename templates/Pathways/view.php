@@ -242,7 +242,7 @@ foreach ($steps->activities as $activity) {
 <div class="p-3 my-3 bg-white rounded-lg">
 	<h2>
 
-		<a href="/learning-curator/steps/view/<?= $steps->id ?>">
+		<a href="/learning-curator/pathways/<?= $pathway->slug ?>/step/<?= $steps->id ?>">
 			<?= h($steps->name) ?> 
 			<i class="fas fa-arrow-circle-right"></i>
 		</a>
