@@ -141,7 +141,7 @@ class PathwaysController extends AppController
     {
         $this->Authorization->skipAuthorization();
         //$this->layout = false;
-        /*$pathway = $this->Pathways->get($id, [
+        $pathway = $this->Pathways->get($id, [
             'contain' => ['Categories', 
                             'Ministries', 
                             'Competencies', 
@@ -151,9 +151,14 @@ class PathwaysController extends AppController
                             'Steps.Activities.Tags'],
         ]);
 
+        foreach($pathway->steps as $step) {
 
-        $this->set(compact('pathway'));*/
-        exec("wget --mirror --convert-links --adjust-extension --page-requisites --no-parent http://localhost:8080/learning-curator/");
+            echo $step->name . '<br>';
+
+        }
+        exit;
+        $this->set(compact('pathway'));
+        //exec("wget --mirror --convert-links --adjust-extension --page-requisites --no-parent http://localhost:8080/learning-curator/");
 
 
     }
