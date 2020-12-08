@@ -7,6 +7,7 @@ Use Cake\ORM\TableRegistry;
 use Cake\ORM\Locator\LocatorAwareTrait;
 // the Text class
 use Cake\Utility\Text;
+use Cake\Event\Event;
 
 /**
  * Activities Controller
@@ -17,25 +18,16 @@ use Cake\Utility\Text;
  */
 class ActivitiesController extends AppController
 {
-        /**
-     * Export method to create an XML export method
-     *
-     * @return \Cake\Http\Response|null
-     */
-    public function export()
-    {
-        $this->Authorization->skipAuthorization();
-        $activities = $this->Activities
-                            ->find('all')
-                            ->contain(['Statuses', 
-                                        'Ministries', 
-                                        'Categories', 
-                                        'ActivityTypes',
-                                        'Steps.Pathways'])
-                            ->where(['Activities.status_id' => 2])
-                            ->order(['Activities.created' => 'DESC']);
 
-        $this->set(compact('activities'));
+    /**
+     * beforeFilter method 
+     *
+     */ 
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        // Load the Index using the 'Elastic' provider.
+        $this->loadModel('Activities'); //, 'Elastic'
     }
     
     /**

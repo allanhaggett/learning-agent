@@ -64,7 +64,8 @@ class Application extends BaseApplication implements AuthorizationServiceProvide
         }
         // Load more plugins here
         $this->addPlugin('Authentication');
-	    $this->addPlugin('Authorization');
+        $this->addPlugin('Authorization');
+        $this->addPlugin('Cake/ElasticSearch');
     }
 
     /**
