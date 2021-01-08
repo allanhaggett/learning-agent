@@ -18,12 +18,19 @@
 	<?php foreach ($pathways as $p) : ?>
 	<div class="p-3 mb-3 bg-white rounded-3 shadow-sm">
 	<div class="fw-light fs-4">
-		<?= $this->Html->link($p->name, ['controller' => 'Pathways', 'action' => 'view', $p->id]) ?>
+		<?= $p->name ?>
 	</div>
-	<?= $this->Html->link(__('Make'), ['controller' => 'Pathways', 'action' => 'make', $p->id],['class' => 'btn btn-warning']) ?>
+	<div>Published on: <?= $p->modified ?></div>
+	<div class="btn-group">
+	<?= $this->Html->link(__('Publish'), ['controller' => 'Pathways', 'action' => 'make', $p->id],['class' => 'btn btn-success']) ?>
+	<?= $this->Html->link(__('View'), ['controller' => 'Pathways', 'action' => 'view', $p->id],['class' => 'btn btn-light']) ?>
+	<a class="btn btn-light" data-bs-toggle="collapse" href="#pathsteps<?= $p->id ?>" role="button" aria-expanded="false" aria-controls="collapseExample">Steps</a>
+	</div>
+	<div class="collapse" id="pathsteps<?= $p->id ?>">
 	<?php foreach ($p->steps as $s) : ?>
 	<?= $this->Html->link($s->name, ['controller' => 'Steps', 'action' => 'edit', $s->id]) ?> 
 	<?php endforeach; ?>
+	</div> <!-- /.collapse -->
 	</div>
 	<?php endforeach; ?>
 </div>
