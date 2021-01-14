@@ -11,15 +11,25 @@
 		crossorigin="anonymous">
 <link href="/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> 
 <style>
+/* #TODO move this into its own .css file */
+a {
+	color: #333;
+}
 .bg-success, 
 .btn-success {
     background-color: rgba(88,174,36,1) !important;
 }
+.nav-pills .nav-link.active, 
+.nav-pills .show>.nav-link {
+	background-color: #FFF;
+	color: #333;
+	font-weight: bold;
+}
 </style>
 </head>
 <body class="bg-light">
-<nav class="navbar navbar-expand-lg sticky-top px-4" style="background-color: rgba(193,129,183,1)">
-	<a class="navbar-brand text-light" href="https://learningcurator.ca">
+<nav class="navbar navbar-expand-lg sticky-top px-4 bg-light">
+	<a class="navbar-brand text-dark" href="https://learningcurator.ca">
 		Learning Curator
 	</a>
 </nav>

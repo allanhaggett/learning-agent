@@ -50,11 +50,43 @@ $pathallactivities = '';
 
 	<h2 class="fs-2 fw-light"><?= h($pathway->objective); ?> </h2>
 
+<div class="row">
+<div class="col-2">
+	<?php if (!empty($pathway->steps)) : ?>
+	<?php 
+	$navloopcount = 0; 
 	
+	?>
+	<ul class="nav nav-pills flex-column mt-3">
+	<?php foreach ($pathway->steps as $steps) : ?>
+	<?php 
+	$activenav = '';
+	if($navloopcount === 0) $activenav = 'active';
+	?>
+	<li class="nav-item text-end">
+		<a href="#step<?= $steps->id ?>" 
+			class="nav-link <?= $activenav ?>"
+			data-bs-toggle="tab" 
+			role="tab" 
+			aria-controls="step<?= $steps->id ?>">
 
+				<?= $steps->name ?>
+
+		</a>
+	</li>
+	<?php $navloopcount++ ?>
+	<?php endforeach ?>
+</ul>
+<?php endif ?>
+</div>
+<div class="col">
+
+<div class="tab-content" id="myTabContent">
 <?php if (!empty($pathway->steps)) : ?>
+<?php $loopcount = 0; ?>
 <?php foreach ($pathway->steps as $steps) : ?>
 <?php 
+
 $stepTime = 0;
 $defunctacts = array();
 $requiredacts = array();
@@ -63,7 +95,6 @@ $acts = array();
 
 $totalacts = count($steps->activities);
 $stepclaimcount = 0;
-
 
 foreach ($steps->activities as $activity) {
 	//print_r($activity);
@@ -94,49 +125,69 @@ foreach ($steps->activities as $activity) {
 }
 $stepacts = count($requiredacts);
 $supplmentalcount = count($supplementalacts);
+$showactive = 'hide';
+if($loopcount == 0) $showactive = 'show active';
 ?>
+<div class="tab-pane fade <?= $showactive ?> bg-white" 
+		id="step<?= $steps->id ?>" 
+		role="tabpanel" 
+		aria-labelledby="step<?= $steps->id ?>-tab">
 
 <div class="p-3 my-3 rounded-lg">
+
 	<h3 class="fs-2">
-			<?= h($steps->name) ?> 
+
+		<?= h($steps->name) ?> 
+	
 	</h3>
 	
-	<div class="fs-3 fw-light"><?= h($steps->description) ?></div>
+	<div class="fs-3 fw-light">
+		
+		<?= h($steps->description) ?>
+	
+	</div>
 
-	<div class="p-3 bg-white shadow-sm rounded-3">
+	<div class="p-3 shadow-sm rounded-3">
+
 	<?php foreach($requiredacts as $activity): ?>
 	<div class="p-1 my-1">
-		<i class="bi bi-check-circle-fill d-none" style="color: rgba(88,174,36,1)" id="actcheck-<?= $activity->id ?>"></i>
-		<a class="fs-5" 
-			data-bs-toggle="collapse" 
-			href="#actinfo-<?= $activity->id ?>" 
-			role="button" 
-			aria-expanded="false" 
-			aria-controls="actinfo-<?= $activity->id ?>">
-				<?= $activity->name ?>
-		</a>
-		<div class="collapse p-5 bg-light rounded-lg shadow-sm" id="actinfo-<?= $activity->id ?>">
+		
+		<div class="p-3 rounded-3 shadow-sm" 
+				id="actinfo-<?= $activity->id ?>" 
+				style="background-color: rgba(<?= $activity->activity_type->color ?>,.2);">
 
+			<h4><?= $activity->name ?></h4>
+			
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				<?= $activity->description ?>
+			</div>
 
-			<div class="activity" id="activity-<?= $activity->id ?>">
+			<div>
+			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
+				href="<?= $activity->hyperlink ?>" 
+				target="_blank" 
+				style="background-color: rgba(<?= $activity->activity_type->color ?>,1);">
+
+				<i class="bi bi-<?= $activity->activity_type->image_path ?>"></i>
+				
+				<?= $activity->activity_type->name ?>
+
+			</a>
+			</div>
+
+			<div class="activity mt-3" id="activity-<?= $activity->id ?>">
+
 				<a href="#" 
 					class="btn btn-success btn-lg" 
 					onclick="return claimit('<?= $activity->id ?>')">
-
+						
+						<i class="bi bi-check-circle"></i>
+						
 						Claim 
 						
-
 				</a>
+
 			</div>
-
-
-
-
-			<h4><?= $activity->name ?></h4>
-			<div><?= $activity->description ?></div>
-			<a class="btn btn-lg btn-primary" href="<?= $activity->hyperlink ?>" target="_blank">
-				<?= $activity->activity_type->name ?>
-			</a>
 		</div>
 	</div>
 	<?php endforeach ?>
@@ -172,9 +223,12 @@ $supplmentalcount = count($supplementalacts);
 	</div>
 
 </div>
-
+</div> <!-- /.collapse -->
+<?php $loopcount++ ?>
 <?php endforeach ?>
-
+</div>
+</div>
+</div>
 
 </div> <!-- /.col-md -->
 <?php else: ?>
@@ -261,15 +315,13 @@ function loadStatus() {
 					// Does the activity appear on this page? If so, 
 					// update the UI to show it's claimed
 					if(document.getElementById(iid)) {
-						let newbutton = '<span class="btn btn-dark btn-lg">';
+						let newbutton = '<span class="btn btn-light btn-lg">';
 						newbutton += 'Claimed ';
-						newbutton += '<i class="fas fa-check-circle">';
+						newbutton += '<i class="bi bi-check-circle-fill"></i>';
 						newbutton += '</span>';
 						document.getElementById(iid).innerHTML = newbutton;
 					}
-					if(document.getElementById(actchk)) {
-						document.getElementById(actchk).classList.remove('d-none');
-					}
+
 					// Update the overall progress counter
 					overallprogress++;
 				}
@@ -328,6 +380,19 @@ function claimit (activityid) {
 
 	return false;
 }
+
+var tabEl = document.querySelector('a[data-bs-toggle="tab"]')
+tabEl.addEventListener('hide.bs.tab', function (event) {
+	event.target // newly activated tab
+	event.relatedTarget // previous active tab
+	let stateObj = {
+    	foo: "bar",
+	}
+    var baseurl = './?step=';
+
+	let goto =  event.target;
+	history.pushState(stateObj, "", goto);
+})
 
 </script>
 </body>
