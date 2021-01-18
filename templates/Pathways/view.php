@@ -20,7 +20,7 @@ $pathallactivities = '';
 <div class="col-2">
 prev
 </div>
-<div class="col">
+<div class="col-8">
 	<span class="navbar-brand">
 	<?= h($pathway->name) ?>
 	</span>
@@ -47,7 +47,7 @@ next
 	
 	<div class="bg-white p-2 mt-3 rounded-3">
 	Topic: 
-	<a href="index.html">
+	<a href="../">
 		<?= $pathway->category->name ?> <?= $pathway->topics[0]->name ?>
 	</a>
 	</div>

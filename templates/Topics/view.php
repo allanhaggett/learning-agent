@@ -14,7 +14,7 @@
 <div class="p-3 my-3 bg-white rounded-lg">
     <h2>
         <?php //$this->Html->link(h($pathway->name), ['controller' => 'Pathways', 'action' => 'view', $pathway->id],['class' => '']) ?>
-        <a href="https://learningcurator.ca/<?= str_replace(' ','-',strtolower($topic->categories[0]->name)) ?>/<?= str_replace(' ','-',strtolower($topic->name)) ?>/<?= h($pathway->slug) ?>.html"><?= h($pathway->name) ?></a>
+        <a href="https://learningcurator.ca/<?= str_replace(' ','-',strtolower($topic->categories[0]->name)) ?>/<?= str_replace(' ','-',strtolower($topic->name)) ?>/<?= h($pathway->slug) ?>/"><?= h($pathway->name) ?></a>
     </h2>
     <div><?= h($pathway->description) ?></div>
 </div>
