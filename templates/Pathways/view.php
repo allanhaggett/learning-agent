@@ -16,7 +16,11 @@ $this->assign('title', h($pathway->name));
 $pathallactivities = '';
 ?>
 
-<div class="sticky-top bg-white shadow-sm p-4">
+<div class="row sticky-top bg-white shadow-sm p-4">
+<div class="col-2">
+prev
+</div>
+<div class="col">
 	<span class="navbar-brand">
 	<?= h($pathway->name) ?>
 	</span>
@@ -30,14 +34,19 @@ $pathallactivities = '';
 				aria-valuemax="100"></div>
 	</div>
 </div>
+<div class="col-2">
+next
+</div>
+</div>
 
 <div class="container-fluid">
 <div class="row justify-content-md-center" id="">
-<div class="col">
+<div class="col-xl-8">
 	
-<div class="p-3">
+<div class="">
 	
-	<div class="bg-white p-2 rounded-3">
+	<div class="bg-white p-2 mt-3 rounded-3">
+	Topic: 
 	<a href="index.html">
 		<?= $pathway->category->name ?> <?= $pathway->topics[0]->name ?>
 	</a>
@@ -50,14 +59,10 @@ $pathallactivities = '';
 
 	<h2 class="fs-2 fw-light"><?= h($pathway->objective); ?> </h2>
 
-<div class="row">
-<div class="col-2">
+
 	<?php if (!empty($pathway->steps)) : ?>
-	<?php 
-	$navloopcount = 0; 
-	
-	?>
-	<ul class="nav nav-pills flex-column mt-3">
+	<?php $navloopcount = 0 ?>
+	<!--<ul class="nav nav-pills flex-column mt-3">
 	<?php foreach ($pathway->steps as $steps) : ?>
 	<?php 
 	$activenav = '';
@@ -76,12 +81,9 @@ $pathallactivities = '';
 	</li>
 	<?php $navloopcount++ ?>
 	<?php endforeach ?>
-</ul>
+</ul> -->
 <?php endif ?>
-</div>
-<div class="col">
 
-<div class="tab-content" id="myTabContent">
 <?php if (!empty($pathway->steps)) : ?>
 <?php $loopcount = 0; ?>
 <?php foreach ($pathway->steps as $steps) : ?>
@@ -125,10 +127,9 @@ foreach ($steps->activities as $activity) {
 }
 $stepacts = count($requiredacts);
 $supplmentalcount = count($supplementalacts);
-$showactive = 'hide';
-if($loopcount == 0) $showactive = 'show active';
+
 ?>
-<div class="tab-pane fade <?= $showactive ?> bg-white" 
+<div class="bg-white" 
 		id="step<?= $steps->id ?>" 
 		role="tabpanel" 
 		aria-labelledby="step<?= $steps->id ?>-tab">
@@ -137,7 +138,7 @@ if($loopcount == 0) $showactive = 'show active';
 
 	<h3 class="fs-2">
 
-		<?= h($steps->name) ?> 
+		<a href="<?= h($steps->slug) ?>.html"><?= h($steps->name) ?></a>
 	
 	</h3>
 	
@@ -147,88 +148,10 @@ if($loopcount == 0) $showactive = 'show active';
 	
 	</div>
 
-	<div class="p-3 shadow-sm rounded-3">
-
-	<?php foreach($requiredacts as $activity): ?>
-	<div class="p-1 my-1">
-		
-		<div class="p-3 rounded-3 shadow-sm" 
-				id="actinfo-<?= $activity->id ?>" 
-				style="background-color: rgba(<?= $activity->activity_type->color ?>,.2);">
-
-			<h4><?= $activity->name ?></h4>
-			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
-				<?= $activity->description ?>
-			</div>
-
-			<div>
-			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
-				href="<?= $activity->hyperlink ?>" 
-				target="_blank" 
-				style="background-color: rgba(<?= $activity->activity_type->color ?>,1);">
-
-				<i class="bi bi-<?= $activity->activity_type->image_path ?>"></i>
-				
-				<?= $activity->activity_type->name ?>
-
-			</a>
-			</div>
-
-			<div class="activity mt-3" id="activity-<?= $activity->id ?>">
-
-				<a href="#" 
-					class="btn btn-success btn-lg" 
-					onclick="return claimit('<?= $activity->id ?>')">
-						
-						<i class="bi bi-check-circle"></i>
-						
-						Claim 
-						
-				</a>
-
-			</div>
-		</div>
-	</div>
-	<?php endforeach ?>
-	<?php if(count($supplementalacts) > 0): ?>
-	<h5>
-		<a class="btn bg-white mt-0" 
-			data-bs-toggle="collapse" 
-			href="#supplemental-step-<?= $steps->id ?>" 
-			role="button" 
-			aria-expanded="false" 
-			aria-controls="supplemental-step-<?= $steps->id ?>">
-				Supplemental Activities
-		</a>
-	</h5>
-	<div class="collapse bg-white p-3 mt-0" id="supplemental-step-<?= $steps->id ?>">
-	<?php foreach($supplementalacts as $activity): ?>
-	<div class="p-1 my-1">
-		<a class="" data-bs-toggle="collapse" href="#actinfo-<?= $activity->id ?>" role="button" aria-expanded="false" aria-controls="actinfo-<?= $activity->id ?>">
-			<?= $activity->name ?>
-		</a>
-		<div class="collapse p-5 bg-light rounded-3" id="actinfo-<?= $activity->id ?>">
-			<h4><?= $activity->name ?></h4>
-			<div><?= $activity->description ?></div>
-			<a class="btn btn-lg btn-dark" href="<?= $activity->hyperlink ?>" target="_blank">
-				<?= $activity->activity_type->name ?>
-			</a>
-		</div>
-	</div>
-	<?php endforeach ?>
-	</div>
-	<?php endif ?>
-
-	</div>
-
 </div>
-</div> <!-- /.collapse -->
-<?php $loopcount++ ?>
 <?php endforeach ?>
-</div>
-</div>
-</div>
+
+
 
 </div> <!-- /.col-md -->
 <?php else: ?>
@@ -369,11 +292,14 @@ function claimit (activityid) {
 	db.put(doc);
 
 	var iid = 'activity-' + activityid;
+	var actname = document.querySelector('#' + iid);
+	console.log(actname.getAttribute('data-activityname'));
 	newbutton = '<span class="btn btn-dark btn-lg">';
 	newbutton += 'Claimed ';
 	newbutton += '<i class="fas fa-check-circle"></i>';
 	newbutton += '</span> ';
 	//newbutton += 'View all of your claims on <a href="#">your dashboard</a>';
+	
 	document.getElementById(iid).innerHTML = newbutton;
 
 	loadStatus();

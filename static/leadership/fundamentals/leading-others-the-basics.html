@@ -10,6 +10,7 @@
 		crossorigin="anonymous">
 <link href="/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> 
 <style>
+/* #TODO move this into its own .css file */
 a {
 	color: #333;
 }
@@ -33,7 +34,11 @@ a {
 </nav>
 
 
-<div class="sticky-top bg-white shadow-sm p-4">
+<div class="row sticky-top bg-white shadow-sm p-4">
+<div class="col-2">
+prev
+</div>
+<div class="col">
 	<span class="navbar-brand">
 	Leading Others: the Basics	</span>
 	<div class="progress">
@@ -46,14 +51,19 @@ a {
 				aria-valuemax="100"></div>
 	</div>
 </div>
+<div class="col-2">
+next
+</div>
+</div>
 
 <div class="container-fluid">
 <div class="row justify-content-md-center" id="">
-<div class="col">
+<div class="col-xl-8">
 	
-<div class="p-3">
+<div class="">
 	
-	<div class="bg-white p-2 rounded-3">
+	<div class="bg-white p-2 mt-3 rounded-3">
+	Topic: 
 	<a href="index.html">
 		Leadership Fundamentals	</a>
 	</div>
@@ -65,9 +75,8 @@ a {
 
 	<h2 class="fs-2 fw-light">Become effective team leaders through excellent mentoring, managing, developing, communicating, and creating cultures of growth and support. </h2>
 
-<div class="row">
-<div class="col-2">
-			<ul class="nav nav-pills flex-column mt-3">
+
+			<!--<ul class="nav nav-pills flex-column mt-3">
 			<li class="nav-item text-end">
 		<a href="#step39" 
 			class="nav-link active"
@@ -158,37 +167,38 @@ a {
 				Step 9
 		</a>
 	</li>
-		</ul>
-</div>
-<div class="col">
+		</ul> -->
 
-<div class="tab-content" id="myTabContent">
-<div class="tab-pane fade show active bg-white" 
+<div class="bg-white" 
 		id="step39" 
 		role="tabpanel" 
 		aria-labelledby="step39-tab">
 
 <div class="p-3 my-3 rounded-lg">
+
 	<h3 class="fs-2">
-			Step 1 
+
+		Step 1 
+	
 	</h3>
 	
-	<div class="fs-3 fw-light">Understand the elements of an effective communications/coaching approach that emphasizes strong 2-way communication focused on the development of staff.</div>
-
-	<div class="p-3 shadow-sm rounded-3">
-		<div class="p-1 my-1">
+	<div class="fs-3 fw-light">
 		
+		Understand the elements of an effective communications/coaching approach that emphasizes strong 2-way communication focused on the development of staff.	
+	</div>
 
-		<div class="p-3 rounded-3 shadow-sm" 
+
+
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-139" 
 				style="background-color: rgba(244,105,115,.2);">
 
-
-
-
 			<h4>5 Minute Supervisor Podcast</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">A short podcast about supervisory leadership. In this first episode, Michele Evans discusses how becoming a supervisor meant shifting to being mindful of all of her interactions with others and the impact she has.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				A short podcast about supervisory leadership. In this first episode, Michele Evans discusses how becoming a supervisor meant shifting to being mindful of all of her interactions with others and the impact she has.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -198,14 +208,16 @@ a {
 
 				<i class="bi bi-headphones"></i>
 				
-
-				Listen			</a>
+				Listen
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-139">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="5 Minute Supervisor Podcast"
+					data-hyperlink="https://gww.gov.bc.ca/comment/57689#comment-57689"
 					onclick="return claimit('139')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -216,21 +228,18 @@ a {
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-140" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>The Most Successful Leaders Do 15 Things Automatically, Every Day on Forbes</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">Leadership is learned behaviour that becomes unconscious and automatic over time. This is for those looking to advance their career into a leadership capacity and / or already assume leadership responsibilities.This article identifies 15 things that must be done automatically, every day, to be a successful leader in the workplace. 
-This list addresses not just Step 1, but competencies to work toward in all of the steps in this pathway.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				Leadership is learned behaviour that becomes unconscious and automatic over time. This is for those looking to advance their career into a leadership capacity and / or already assume leadership responsibilities.This article identifies 15 things that must be done automatically, every day, to be a successful leader in the workplace. 
+This list addresses not just Step 1, but competencies to work toward in all of the steps in this pathway.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -240,14 +249,16 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-140">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="The Most Successful Leaders Do 15 Things Automatically, Every Day on Forbes"
+					data-hyperlink="https://www.forbes.com/sites/glennllopis/2013/02/18/the-most-successful-leaders-do-15-things-automatically-every-day/#10911a3a69d7"
 					onclick="return claimit('140')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -258,20 +269,17 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-143" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>MyPerformance Coaching Questions: Take the Time. It's all about the conversation!</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">These coaching questions can be used by supervisors and employees for their ongoing MyPerformance conversations.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				These coaching questions can be used by supervisors and employees for their ongoing MyPerformance conversations.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -281,14 +289,16 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-143">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="MyPerformance Coaching Questions: Take the Time. It's all about the conversation!"
+					data-hyperlink="https://www2.gov.bc.ca/assets/gov/careers/managers-supervisors/coaching-myperformance-conversations/myperformance_coaching_questions.pdf"
 					onclick="return claimit('143')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -299,7 +309,7 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 			</div>
 		</div>
-	</div>
+
 			<h5>
 		<a class="btn bg-white mt-0" 
 			data-bs-toggle="collapse" 
@@ -393,38 +403,42 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 				Participate			</a>
 		</div>
 	</div>
-		</div>
+	
 	
 	</div>
 
 </div>
 </div> <!-- /.collapse -->
-<div class="tab-pane fade hide bg-white" 
+<div class="bg-white" 
 		id="step40" 
 		role="tabpanel" 
 		aria-labelledby="step40-tab">
 
 <div class="p-3 my-3 rounded-lg">
+
 	<h3 class="fs-2">
-			Step 2 
+
+		Step 2 
+	
 	</h3>
 	
-	<div class="fs-3 fw-light">Have strength-based career conversations with your direct reports that focus on growth.</div>
-
-	<div class="p-3 shadow-sm rounded-3">
-		<div class="p-1 my-1">
+	<div class="fs-3 fw-light">
 		
+		Have strength-based career conversations with your direct reports that focus on growth.	
+	</div>
 
-		<div class="p-3 rounded-3 shadow-sm" 
+
+
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-147" 
 				style="background-color: rgba(255,218,96,.2);">
 
-
-
-
 			<h4>EdX Course: Leading Others</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">Learn to be a better manager by developing leadership and communication skills designed to turn first-time managers into great team leaders.  This course targets first time/relatively new managers of people.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				Learn to be a better manager by developing leadership and communication skills designed to turn first-time managers into great team leaders.  This course targets first time/relatively new managers of people.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -434,14 +448,16 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 				<i class="bi bi-people-fill"></i>
 				
-
-				Participate			</a>
+				Participate
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-147">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="EdX Course: Leading Others"
+					data-hyperlink="https://www.edx.org/course/people-management-3"
 					onclick="return claimit('147')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -452,22 +468,19 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-148" 
 				style="background-color: rgba(255,218,96,.2);">
 
-
-
-
 			<h4>Coaching Approach to Conversations</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">This Learning Centre course will help take supervisory skills to a whole new level while learning how to maximize the performance of others. The course explores the fundamentals of the coaching approach to conversations in a supervisory role. Conversations using the coaching approach can leverage the belief in potential and possibility and achieve unexpected results. This will help to bring out the best in staff.  Classroom, 1-day.
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				This Learning Centre course will help take supervisory skills to a whole new level while learning how to maximize the performance of others. The course explores the fundamentals of the coaching approach to conversations in a supervisory role. Conversations using the coaching approach can leverage the belief in potential and possibility and achieve unexpected results. This will help to bring out the best in staff.  Classroom, 1-day.
  
-<b><i>Note: Given ongoing concerns regarding COVID-19 and advice/efforts to promote social distancing, the Learning Centre is postponing its face-to-face courses for the foreseeable future.</i></b></div>
+<b><i>Note: Given ongoing concerns regarding COVID-19 and advice/efforts to promote social distancing, the Learning Centre is postponing its face-to-face courses for the foreseeable future.</i></b>			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -477,14 +490,16 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 				<i class="bi bi-people-fill"></i>
 				
-
-				Participate			</a>
+				Participate
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-148">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="Coaching Approach to Conversations"
+					data-hyperlink="https://gww.gov.bc.ca/groups/learning-bc-public-service/coaching-approach-conversations"
 					onclick="return claimit('148')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -495,20 +510,17 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-153" 
 				style="background-color: rgba(255,218,96,.2);">
 
-
-
-
 			<h4>LEAD Workbook: Developing Others</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">Developing Others involves a genuine intent to foster the long-term learning or development of others through coaching, managing performance and mentoring rather than through formal training. This Workbook provides guidance on the approach, from reflection questions to ask yourself to steps to take with your direct reports.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				Developing Others involves a genuine intent to foster the long-term learning or development of others through coaching, managing performance and mentoring rather than through formal training. This Workbook provides guidance on the approach, from reflection questions to ask yourself to steps to take with your direct reports.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -518,14 +530,16 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 				<i class="bi bi-people-fill"></i>
 				
-
-				Participate			</a>
+				Participate
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-153">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="LEAD Workbook: Developing Others"
+					data-hyperlink="https://gww.nrs.gov.bc.ca/csnr/files/csnr/media/strategic_human_resources/developingothers_final.pdf"
 					onclick="return claimit('153')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -536,7 +550,7 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 			</div>
 		</div>
-	</div>
+
 			<h5>
 		<a class="btn bg-white mt-0" 
 			data-bs-toggle="collapse" 
@@ -608,38 +622,42 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 				Read			</a>
 		</div>
 	</div>
-		</div>
+	
 	
 	</div>
 
 </div>
 </div> <!-- /.collapse -->
-<div class="tab-pane fade hide bg-white" 
+<div class="bg-white" 
 		id="step41" 
 		role="tabpanel" 
 		aria-labelledby="step41-tab">
 
 <div class="p-3 my-3 rounded-lg">
+
 	<h3 class="fs-2">
-			Step 3 
+
+		Step 3 
+	
 	</h3>
 	
-	<div class="fs-3 fw-light">Gather different perspectives from your team prior to making decisions.</div>
-
-	<div class="p-3 shadow-sm rounded-3">
-		<div class="p-1 my-1">
+	<div class="fs-3 fw-light">
 		
+		Gather different perspectives from your team prior to making decisions.	
+	</div>
 
-		<div class="p-3 rounded-3 shadow-sm" 
+
+
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-157" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>We Rise by Lifting Each Other - Blog post by T'oila McIntyre, Lead of House of Indigenous Learning</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">T'oila McIntyre, Lead of House of Indigenous Learning, shares Indigenous perspectives on leadership. These reflections speak to this step's objective of learning to gather perspectives other than your own, but they also are rich in wisdom for Step 6, fostering collaboration, and Step 8: building a culture of trust.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				T'oila McIntyre, Lead of House of Indigenous Learning, shares Indigenous perspectives on leadership. These reflections speak to this step's objective of learning to gather perspectives other than your own, but they also are rich in wisdom for Step 6, fostering collaboration, and Step 8: building a culture of trust.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -649,14 +667,16 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-157">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="We Rise by Lifting Each Other - Blog post by T'oila McIntyre, Lead of House of Indigenous Learning"
+					data-hyperlink="https://gww.gov.bc.ca/groups/leadership-community-practice/blogs/2020/0302/we-rise-lifting-each-other"
 					onclick="return claimit('157')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -667,20 +687,17 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-158" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>What the Best Mentors Do</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">The most admired leaders have a people-centric focus and inspire others to feel like fuller versions of themselves. This article discusses findings from a three-year study on how leaders can better judge and develop their talent in light of a changing and more purpose-driven work environment.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				The most admired leaders have a people-centric focus and inspire others to feel like fuller versions of themselves. This article discusses findings from a three-year study on how leaders can better judge and develop their talent in light of a changing and more purpose-driven work environment.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -690,14 +707,16 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-158">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="What the Best Mentors Do"
+					data-hyperlink="https://hbr.org/2017/02/what-the-best-mentors-do"
 					onclick="return claimit('158')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -708,20 +727,17 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-160" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>If You Aspire to Be a Great Leader, Be Present</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">This Harvard Business Review article shares the story of a CEO who greatly improved his interactions with his staff in less time by applying a mindfulness practice to his daily routine. The article also provides the best practices of other successful CEOs that may help leaders in their quest to be more present in their daily life.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				This Harvard Business Review article shares the story of a CEO who greatly improved his interactions with his staff in less time by applying a mindfulness practice to his daily routine. The article also provides the best practices of other successful CEOs that may help leaders in their quest to be more present in their daily life.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -731,14 +747,16 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-160">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="If You Aspire to Be a Great Leader, Be Present"
+					data-hyperlink="https://hbr.org/2017/12/if-you-aspire-to-be-a-great-leader-be-present"
 					onclick="return claimit('160')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -749,7 +767,7 @@ This list addresses not just Step 1, but competencies to work toward in all of t
 
 			</div>
 		</div>
-	</div>
+
 			<h5>
 		<a class="btn bg-white mt-0" 
 			data-bs-toggle="collapse" 
@@ -772,38 +790,42 @@ Transcript available. </div>
 				Watch			</a>
 		</div>
 	</div>
-		</div>
+	
 	
 	</div>
 
 </div>
 </div> <!-- /.collapse -->
-<div class="tab-pane fade hide bg-white" 
+<div class="bg-white" 
 		id="step42" 
 		role="tabpanel" 
 		aria-labelledby="step42-tab">
 
 <div class="p-3 my-3 rounded-lg">
+
 	<h3 class="fs-2">
-			Step 4 
+
+		Step 4 
+	
 	</h3>
 	
-	<div class="fs-3 fw-light">Construct engaging narratives that will support your vision and inspire your team!</div>
-
-	<div class="p-3 shadow-sm rounded-3">
-		<div class="p-1 my-1">
+	<div class="fs-3 fw-light">
 		
+		Construct engaging narratives that will support your vision and inspire your team!	
+	</div>
 
-		<div class="p-3 rounded-3 shadow-sm" 
+
+
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-159" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>Why employee recognition is so important &#8212and how you can start doing it</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">To be an effective leader in your job, you need to understand the importance of praising others for their good work, to apply the principles of employee recognition yourself and to encourage others to initiate it in their working relationships. This article explains the importance of recognition and some ideas to get started.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				To be an effective leader in your job, you need to understand the importance of praising others for their good work, to apply the principles of employee recognition yourself and to encourage others to initiate it in their working relationships. This article explains the importance of recognition and some ideas to get started.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -813,14 +835,16 @@ Transcript available. </div>
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-159">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="Why employee recognition is so important &#8212and how you can start doing it"
+					data-hyperlink="https://cuttingedgepr.com/free-articles/employee-recognition-important/"
 					onclick="return claimit('159')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -831,20 +855,17 @@ Transcript available. </div>
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-160" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>If You Aspire to Be a Great Leader, Be Present</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">This Harvard Business Review article shares the story of a CEO who greatly improved his interactions with his staff in less time by applying a mindfulness practice to his daily routine. The article also provides the best practices of other successful CEOs that may help leaders in their quest to be more present in their daily life.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				This Harvard Business Review article shares the story of a CEO who greatly improved his interactions with his staff in less time by applying a mindfulness practice to his daily routine. The article also provides the best practices of other successful CEOs that may help leaders in their quest to be more present in their daily life.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -854,14 +875,16 @@ Transcript available. </div>
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-160">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="If You Aspire to Be a Great Leader, Be Present"
+					data-hyperlink="https://hbr.org/2017/12/if-you-aspire-to-be-a-great-leader-be-present"
 					onclick="return claimit('160')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -872,20 +895,17 @@ Transcript available. </div>
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-161" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>The Best Leaders Are Great Teachers</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">Great leaders understand that even a small amount of high-quality, one-on-one teaching can produce great results. This Harvard Business Review article discusses findings from a ten-year study about what sets world-class leaders apart from typical leaders.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				Great leaders understand that even a small amount of high-quality, one-on-one teaching can produce great results. This Harvard Business Review article discusses findings from a ten-year study about what sets world-class leaders apart from typical leaders.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -895,14 +915,16 @@ Transcript available. </div>
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-161">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="The Best Leaders Are Great Teachers"
+					data-hyperlink="https://hbr.org/2018/01/the-best-leaders-are-great-teachers"
 					onclick="return claimit('161')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -913,7 +935,7 @@ Transcript available. </div>
 
 			</div>
 		</div>
-	</div>
+
 			<h5>
 		<a class="btn bg-white mt-0" 
 			data-bs-toggle="collapse" 
@@ -977,38 +999,42 @@ Transcript available. </div>
 				Participate			</a>
 		</div>
 	</div>
-		</div>
+	
 	
 	</div>
 
 </div>
 </div> <!-- /.collapse -->
-<div class="tab-pane fade hide bg-white" 
+<div class="bg-white" 
 		id="step43" 
 		role="tabpanel" 
 		aria-labelledby="step43-tab">
 
 <div class="p-3 my-3 rounded-lg">
+
 	<h3 class="fs-2">
-			Step 5 
+
+		Step 5 
+	
 	</h3>
 	
-	<div class="fs-3 fw-light">Engage in meaningful and regular (quarterly) MyPerformance conversations with all team members.</div>
-
-	<div class="p-3 shadow-sm rounded-3">
-		<div class="p-1 my-1">
+	<div class="fs-3 fw-light">
 		
+		Engage in meaningful and regular (quarterly) MyPerformance conversations with all team members.	
+	</div>
 
-		<div class="p-3 rounded-3 shadow-sm" 
+
+
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-167" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>Supportive Performance Management</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">This article talks about how to communicate respectfully when employees are struggling. Some workplaces have adopted performance management processes that focus primarily on intervening only when an employee is not performing at their best or as expected. Effectively supporting good performance is an important management skill and the suggestions in this article can be applied whether or not an employee has a mental health issue.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				This article talks about how to communicate respectfully when employees are struggling. Some workplaces have adopted performance management processes that focus primarily on intervening only when an employee is not performing at their best or as expected. Effectively supporting good performance is an important management skill and the suggestions in this article can be applied whether or not an employee has a mental health issue.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1018,14 +1044,16 @@ Transcript available. </div>
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-167">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="Supportive Performance Management"
+					data-hyperlink="https://www.workplacestrategiesformentalhealth.com/managing-workplace-issues/supportive-performance-management"
 					onclick="return claimit('167')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1036,20 +1064,17 @@ Transcript available. </div>
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-171" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>MyPerformance Guide to Performance Conversations</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">Research shows that trusted feedback between supervisors and employees has a great impact on employee engagement, motivation and results. For both employees and supervisors, this guide, provides best practices for having meaningful conversations about performance and development.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				Research shows that trusted feedback between supervisors and employees has a great impact on employee engagement, motivation and results. For both employees and supervisors, this guide, provides best practices for having meaningful conversations about performance and development.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1059,14 +1084,16 @@ Transcript available. </div>
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-171">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="MyPerformance Guide to Performance Conversations"
+					data-hyperlink="https://www2.gov.bc.ca/assets/gov/careers/all-employees/career-development/myperformance/myperformance_conversations.pdf"
 					onclick="return claimit('171')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1077,7 +1104,7 @@ Transcript available. </div>
 
 			</div>
 		</div>
-	</div>
+
 			<h5>
 		<a class="btn bg-white mt-0" 
 			data-bs-toggle="collapse" 
@@ -1121,38 +1148,42 @@ Also relevant to Step 8: Creating a culture of trust, innovation and inclusion.<
 				Read			</a>
 		</div>
 	</div>
-		</div>
+	
 	
 	</div>
 
 </div>
 </div> <!-- /.collapse -->
-<div class="tab-pane fade hide bg-white" 
+<div class="bg-white" 
 		id="step44" 
 		role="tabpanel" 
 		aria-labelledby="step44-tab">
 
 <div class="p-3 my-3 rounded-lg">
+
 	<h3 class="fs-2">
-			Step 6 
+
+		Step 6 
+	
 	</h3>
 	
-	<div class="fs-3 fw-light">Build your team&#039;s capacity for collaboration and succession management.</div>
-
-	<div class="p-3 shadow-sm rounded-3">
-		<div class="p-1 my-1">
+	<div class="fs-3 fw-light">
 		
+		Build your team&#039;s capacity for collaboration and succession management.	
+	</div>
 
-		<div class="p-3 rounded-3 shadow-sm" 
+
+
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-172" 
 				style="background-color: rgba(193,129,183,.2);">
 
-
-
-
 			<h4>Steve Trautman Co. 3-Step Knowledge Transfer Solution with Knowledge Silo Matrix Demo</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">Short video with a demonstration of how this simple spreadsheet matrix can help you analyze and plan for knowledge transfer in your organization.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				Short video with a demonstration of how this simple spreadsheet matrix can help you analyze and plan for knowledge transfer in your organization.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1162,14 +1193,16 @@ Also relevant to Step 8: Creating a culture of trust, innovation and inclusion.<
 
 				<i class="bi bi-camera-video-fill"></i>
 				
-
-				Watch			</a>
+				Watch
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-172">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="Steve Trautman Co. 3-Step Knowledge Transfer Solution with Knowledge Silo Matrix Demo"
+					data-hyperlink="https://www.youtube.com/watch?v=knN-ZzVAmMY"
 					onclick="return claimit('172')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1180,20 +1213,17 @@ Also relevant to Step 8: Creating a culture of trust, innovation and inclusion.<
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-174" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>MyPerformance Guide to Maximizing Results</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">This guide helps supervisors link employee performance to organizational performance, and allows employees to connect the work they do to overall business goals. Identify high potential and performance to align with critical work and learn from success.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				This guide helps supervisors link employee performance to organizational performance, and allows employees to connect the work they do to overall business goals. Identify high potential and performance to align with critical work and learn from success.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1203,14 +1233,16 @@ Also relevant to Step 8: Creating a culture of trust, innovation and inclusion.<
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-174">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="MyPerformance Guide to Maximizing Results"
+					data-hyperlink="https://www2.gov.bc.ca/assets/gov/careers/managers-supervisors/coaching-myperformance-conversations/myperformance_maximizing_results.pdf"
 					onclick="return claimit('174')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1221,20 +1253,17 @@ Also relevant to Step 8: Creating a culture of trust, innovation and inclusion.<
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-179" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>MyPerformance Guide to Assessing Employee Performance</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">This guide gives simple, practical tips and tools for measuring employee performance. It explains how to apply the BC Public Service Values and key competencies, use the Descriptive Rating Scale, determine what work your employee is accomplishing and how, give and receive feedback, and handle difficult conversations about performance. (You need to evaluate before you know how to develop an employee, so this resource is foundational for this step)</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				This guide gives simple, practical tips and tools for measuring employee performance. It explains how to apply the BC Public Service Values and key competencies, use the Descriptive Rating Scale, determine what work your employee is accomplishing and how, give and receive feedback, and handle difficult conversations about performance. (You need to evaluate before you know how to develop an employee, so this resource is foundational for this step)			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1244,14 +1273,16 @@ Also relevant to Step 8: Creating a culture of trust, innovation and inclusion.<
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-179">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="MyPerformance Guide to Assessing Employee Performance"
+					data-hyperlink="https://www2.gov.bc.ca/assets/gov/careers/managers-supervisors/coaching-myperformance-conversations/myperformance_assessing_employee_performance.pdf"
 					onclick="return claimit('179')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1262,20 +1293,17 @@ Also relevant to Step 8: Creating a culture of trust, innovation and inclusion.<
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-304" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>Knowledge Transfer in the BCPS</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">A MyHR site with knowledge transfer guides and resources for managers and supervisors.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				A MyHR site with knowledge transfer guides and resources for managers and supervisors.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1285,14 +1313,16 @@ Also relevant to Step 8: Creating a culture of trust, innovation and inclusion.<
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-304">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="Knowledge Transfer in the BCPS"
+					data-hyperlink="https://www2.qa.gov.bc.ca/gov/content/careers-myhr/managers-supervisors/knowledge-transfer"
 					onclick="return claimit('304')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1303,7 +1333,7 @@ Also relevant to Step 8: Creating a culture of trust, innovation and inclusion.<
 
 			</div>
 		</div>
-	</div>
+
 			<h5>
 		<a class="btn bg-white mt-0" 
 			data-bs-toggle="collapse" 
@@ -1368,38 +1398,42 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 				Participate			</a>
 		</div>
 	</div>
-		</div>
+	
 	
 	</div>
 
 </div>
 </div> <!-- /.collapse -->
-<div class="tab-pane fade hide bg-white" 
+<div class="bg-white" 
 		id="step45" 
 		role="tabpanel" 
 		aria-labelledby="step45-tab">
 
 <div class="p-3 my-3 rounded-lg">
+
 	<h3 class="fs-2">
-			Step 7 
+
+		Step 7 
+	
 	</h3>
 	
-	<div class="fs-3 fw-light">Support team members to take temporary assignments and get involved in projects.</div>
-
-	<div class="p-3 shadow-sm rounded-3">
-		<div class="p-1 my-1">
+	<div class="fs-3 fw-light">
 		
+		Support team members to take temporary assignments and get involved in projects.	
+	</div>
 
-		<div class="p-3 rounded-3 shadow-sm" 
+
+
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-307" 
 				style="background-color: rgba(255,218,96,.2);">
 
-
-
-
 			<h4>Helping your Team to Practice their Leadership Skills </h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">This activity provides a list of tips to share with your staff to help them practice their own leadership skills in development. Select one or more of these tips and meet with your staff to talk about how to find or create their own opportunities to apply what they're learning.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				This activity provides a list of tips to share with your staff to help them practice their own leadership skills in development. Select one or more of these tips and meet with your staff to talk about how to find or create their own opportunities to apply what they're learning.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1409,14 +1443,16 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 				<i class="bi bi-people-fill"></i>
 				
-
-				Participate			</a>
+				Participate
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-307">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="Helping your Team to Practice their Leadership Skills "
+					data-hyperlink="https://gww.bcpublicservice.gov.bc.ca/learning/curator/forms/Step7 - Leading_others.pdf"
 					onclick="return claimit('307')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1427,20 +1463,17 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-343" 
 				style="background-color: rgba(255,218,96,.2);">
 
-
-
-
 			<h4>Developing Others</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">Our development resource guide defines what it means to develop others, and contains activities to help you develop your competency in this area. </div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				Our development resource guide defines what it means to develop others, and contains activities to help you develop your competency in this area. 			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1450,14 +1483,16 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 				<i class="bi bi-people-fill"></i>
 				
-
-				Participate			</a>
+				Participate
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-343">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="Developing Others"
+					data-hyperlink="https://gww.gov.bc.ca/sites/default/files/competencies/LeadingPeople_DevelopingOthers.pdf"
 					onclick="return claimit('343')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1468,20 +1503,17 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-378" 
 				style="background-color: rgba(193,129,183,.2);">
 
-
-
-
 			<h4>MBCPS Executive Panel Excerpt </h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">Panelists talk about how to encourage staff to take opportunities, and the importance of not holding your employees back from the development they need.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				Panelists talk about how to encourage staff to take opportunities, and the importance of not holding your employees back from the development they need.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1491,14 +1523,16 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 				<i class="bi bi-camera-video-fill"></i>
 				
-
-				Watch			</a>
+				Watch
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-378">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="MBCPS Executive Panel Excerpt "
+					data-hyperlink="https://youtu.be/ljl0aSJXLWU"
 					onclick="return claimit('378')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1509,7 +1543,7 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 			</div>
 		</div>
-	</div>
+
 			<h5>
 		<a class="btn bg-white mt-0" 
 			data-bs-toggle="collapse" 
@@ -1531,38 +1565,42 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 				Read			</a>
 		</div>
 	</div>
-		</div>
+	
 	
 	</div>
 
 </div>
 </div> <!-- /.collapse -->
-<div class="tab-pane fade hide bg-white" 
+<div class="bg-white" 
 		id="step46" 
 		role="tabpanel" 
 		aria-labelledby="step46-tab">
 
 <div class="p-3 my-3 rounded-lg">
+
 	<h3 class="fs-2">
-			Step 8 
+
+		Step 8 
+	
 	</h3>
 	
-	<div class="fs-3 fw-light">Create a culture of trust, innovation and inclusion, where perspectives are accepted from everyone and doing things differently is encouraged.</div>
-
-	<div class="p-3 shadow-sm rounded-3">
-		<div class="p-1 my-1">
+	<div class="fs-3 fw-light">
 		
+		Create a culture of trust, innovation and inclusion, where perspectives are accepted from everyone and doing things differently is encouraged.	
+	</div>
 
-		<div class="p-3 rounded-3 shadow-sm" 
+
+
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-181" 
 				style="background-color: rgba(193,129,183,.2);">
 
-
-
-
 			<h4>Apolitical Digital 101 Video: Trust, diversity and culture: how to create an effective government workplace</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">This video provides an overview of Servant Leadership, and why it has the power to make transformation stick. Servant leadership is all about focusing on the needs of people, not the organization, first. Servant leaders clear a path and empower their staff, placing the needs of the team ahead of their own desires. Taking the stance that "leadership is action, not position" - Donald McGannon</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				This video provides an overview of Servant Leadership, and why it has the power to make transformation stick. Servant leadership is all about focusing on the needs of people, not the organization, first. Servant leaders clear a path and empower their staff, placing the needs of the team ahead of their own desires. Taking the stance that "leadership is action, not position" - Donald McGannon			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1572,14 +1610,16 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 				<i class="bi bi-camera-video-fill"></i>
 				
-
-				Watch			</a>
+				Watch
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-181">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="Apolitical Digital 101 Video: Trust, diversity and culture: how to create an effective government workplace"
+					data-hyperlink="https://apolitical.co/en/solution_article/servant-leadership-how-to-build-a-workplace-thats-ready-to-serve"
 					onclick="return claimit('181')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1590,21 +1630,18 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-183" 
 				style="background-color: rgba(255,218,96,.2);">
 
-
-
-
 			<h4>Supervisor Essentials</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">This 2-day Learning Centre course, which is restricted to current supervisors and managers, provides new and experienced supervisors with a common understanding of their role as supervisory leaders in the BC Public Service.
-<b><i>Given ongoing concerns regarding COVID-19 and advice/efforts to promote social distancing, the Learning Centre is postponing its face-to-face courses for the foreseeable future.</i></b></div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				This 2-day Learning Centre course, which is restricted to current supervisors and managers, provides new and experienced supervisors with a common understanding of their role as supervisory leaders in the BC Public Service.
+<b><i>Given ongoing concerns regarding COVID-19 and advice/efforts to promote social distancing, the Learning Centre is postponing its face-to-face courses for the foreseeable future.</i></b>			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1614,14 +1651,16 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 				<i class="bi bi-people-fill"></i>
 				
-
-				Participate			</a>
+				Participate
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-183">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="Supervisor Essentials"
+					data-hyperlink="https://learning.gov.bc.ca/psc/CHIPSPLM/EMPLOYEE/ELM/c/LM_OD_EMPLOYEE_FL.LM_CRS_DTL_FL.GBL?Page=LM_CRS_DTL_FL&Action=U&ForceSearch=Y&LM_CI_ID=1110&TargetFrameName=None"
 					onclick="return claimit('183')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1632,20 +1671,17 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-187" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>National Managers' Community - 10 easy ideas to appreciate and celebrate teams</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">A two-page infographic showing 10 easy ways to appreciate and celebrate teams.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				A two-page infographic showing 10 easy ways to appreciate and celebrate teams.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1655,14 +1691,16 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-187">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="National Managers' Community - 10 easy ideas to appreciate and celebrate teams"
+					data-hyperlink="https://www.managers-gestionnaires.gc.ca/sites/default/files/publication_nmc_10_ways_to_appreciate_staff/10_ways_to_celebrate_teams.pdf"
 					onclick="return claimit('187')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1673,22 +1711,19 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-188" 
 				style="background-color: rgba(255,218,96,.2);">
 
-
-
-
 			<h4>Building a Respectful Workplace</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">This one-day face-to-face course, intended for all staff, brings supervisors and staff together to discuss how to co-create respectful workplaces.
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				This one-day face-to-face course, intended for all staff, brings supervisors and staff together to discuss how to co-create respectful workplaces.
 
-<b><i>Given ongoing concerns regarding COVID-19 and advice/efforts to promote social distancing, the Learning Centre is postponing its face-to-face courses for the foreseeable future.</i></b></div>
+<b><i>Given ongoing concerns regarding COVID-19 and advice/efforts to promote social distancing, the Learning Centre is postponing its face-to-face courses for the foreseeable future.</i></b>			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1698,14 +1733,16 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 				<i class="bi bi-people-fill"></i>
 				
-
-				Participate			</a>
+				Participate
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-188">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="Building a Respectful Workplace"
+					data-hyperlink="https://learning.gov.bc.ca/psc/CHIPSPLM/EMPLOYEE/ELM/c/LM_OD_EMPLOYEE_FL.LM_CRS_DTL_FL.GBL?Page=LM_CRS_DTL_FL&Action=U&ForceSearch=Y&LM_CI_ID=1061&TargetFrameName=None&"
 					onclick="return claimit('188')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1716,20 +1753,17 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 			</div>
 		</div>
-	</div>
-		<div class="p-1 my-1">
-		
 
-		<div class="p-3 rounded-3 shadow-sm" 
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-190" 
 				style="background-color: rgba(193,129,183,.2);">
 
-
-
-
 			<h4>Managing Multicultural Teams</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">This short video from the Harvard Business Review discusses four main strategies for Managing Multicultural Teams.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				This short video from the Harvard Business Review discusses four main strategies for Managing Multicultural Teams.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1739,14 +1773,16 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 				<i class="bi bi-camera-video-fill"></i>
 				
-
-				Watch			</a>
+				Watch
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-190">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="Managing Multicultural Teams"
+					data-hyperlink="https://hbr.org/video/5465904616001/the-explainer-managing-multicultural-teams"
 					onclick="return claimit('190')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1757,7 +1793,7 @@ Visit the <a href="https://gww.gov.bc.ca/groups/mbcps-hub" target="_blank">MBCPS
 
 			</div>
 		</div>
-	</div>
+
 			<h5>
 		<a class="btn bg-white mt-0" 
 			data-bs-toggle="collapse" 
@@ -1845,38 +1881,42 @@ Note that the Learning Centre Library holds two copies of the 2015 edition.</div
 				Participate			</a>
 		</div>
 	</div>
-		</div>
+	
 	
 	</div>
 
 </div>
 </div> <!-- /.collapse -->
-<div class="tab-pane fade hide bg-white" 
+<div class="bg-white" 
 		id="step47" 
 		role="tabpanel" 
 		aria-labelledby="step47-tab">
 
 <div class="p-3 my-3 rounded-lg">
+
 	<h3 class="fs-2">
-			Step 9 
+
+		Step 9 
+	
 	</h3>
 	
-	<div class="fs-3 fw-light">Connect your staff when they&#039;re at a distance -  effectively managing a virtual team or teams with remote workers.</div>
-
-	<div class="p-3 shadow-sm rounded-3">
-		<div class="p-1 my-1">
+	<div class="fs-3 fw-light">
 		
+		Connect your staff when they&#039;re at a distance -  effectively managing a virtual team or teams with remote workers.	
+	</div>
 
-		<div class="p-3 rounded-3 shadow-sm" 
+
+
+	
+		
+		<div class="p-3 my-3 rounded-3 shadow-sm" 
 				id="actinfo-192" 
 				style="background-color: rgba(249,145,80,.2);">
 
-
-
-
 			<h4>Facilitating in a Virtual Environment (FIVE) Group on @Work</h4>
 			
-			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">Learn tips, tricks and tools to help you conduct virtual meetings effectively.</div>
+			<div class="p-3 rounded-3" style="background-color: rgba(255,255,255,.4)">
+				Learn tips, tricks and tools to help you conduct virtual meetings effectively.			</div>
 
 			<div>
 			<a class="btn btn-lg btn-block w-100 mt-3 fs-4" 
@@ -1886,14 +1926,16 @@ Note that the Learning Centre Library holds two copies of the 2015 edition.</div
 
 				<i class="bi bi-book"></i>
 				
-
-				Read			</a>
+				Read
+			</a>
 			</div>
 
 			<div class="activity mt-3" id="activity-192">
 
 				<a href="#" 
 					class="btn btn-success btn-lg" 
+					data-activityname="Facilitating in a Virtual Environment (FIVE) Group on @Work"
+					data-hyperlink="https://gww.gov.bc.ca/groups/five"
 					onclick="return claimit('192')">
 						
 						<i class="bi bi-check-circle"></i>
@@ -1904,7 +1946,7 @@ Note that the Learning Centre Library holds two copies of the 2015 edition.</div
 
 			</div>
 		</div>
-	</div>
+
 			<h5>
 		<a class="btn bg-white mt-0" 
 			data-bs-toggle="collapse" 
@@ -1936,15 +1978,14 @@ Note that the Learning Centre Library holds two copies of the 2015 edition.</div
 				Read			</a>
 		</div>
 	</div>
-		</div>
+	
 	
 	</div>
 
 </div>
 </div> <!-- /.collapse -->
-</div>
-</div>
-</div>
+
+
 
 </div> <!-- /.col-md -->
 
@@ -2082,11 +2123,14 @@ function claimit (activityid) {
 	db.put(doc);
 
 	var iid = 'activity-' + activityid;
+	var actname = document.querySelector('#' + iid);
+	console.log(actname.getAttribute('data-activityname'));
 	newbutton = '<span class="btn btn-dark btn-lg">';
 	newbutton += 'Claimed ';
 	newbutton += '<i class="fas fa-check-circle"></i>';
 	newbutton += '</span> ';
 	//newbutton += 'View all of your claims on <a href="#">your dashboard</a>';
+	
 	document.getElementById(iid).innerHTML = newbutton;
 
 	loadStatus();

@@ -94,33 +94,42 @@ class PathwaysController extends AppController
                             'Steps.Activities.Tags'],
         ]);
 
-        #TODO the following should be constants
+        //#TODO the following should be constants
         $cmsdomain = 'https://cms.learningcurator.ca/';
         $publicdomain = 'https://learningcurator.ca/';
         $category = Text::slug(strtolower($pathway->category->name));
         $topic = Text::slug(strtolower($pathway->topics[0]->name));
-        // #TODO don't hardcode this path
+        //#TODO don't hardcode this path
         $homefolder = '/home/curator/learning-curator/static/';
-        $pathfolder = $homefolder . $category . '/' . $topic;
+        $pathfolder = $homefolder . $category . '/' . $topic . '/' . $pathway->slug;
         if(!is_dir($pathfolder)) {
             if (!mkdir($pathfolder, 0777, true)) {
                 die('Failed to create folders...');
             }
         }
         $topicpath = $homefolder . $category . '/' . $topic . '/index.html';
-        $pathwaypath = $pathfolder . '/' . $pathway->slug . '.html';
-        $publishedpath = $publicdomain . $category . '/' . $topic . '/' . $pathway->slug . '.html';
+        $pathwaypath = $pathfolder . '/index.html';
+        $publishedpath = $publicdomain . $category . '/' . $topic . '/' . $pathway->slug . '/';
         $pathsource = $cmsdomain .  'pathways/view/' . $pathway->id;
         $topicsource = $cmsdomain .  'topics/view/' . $pathway->topics[0]->id;
         $pathhtml = file_get_contents($pathsource);
         $topichtml = file_get_contents($topicsource);
-        $p=fopen($pathwaypath,'w'); 
+        $p=fopen($pathwaypath,'w');
         fwrite($p,$pathhtml);
         fclose($p);
         
         $t=fopen($topicpath,'w'); 
         fwrite($t,$topichtml);
         fclose($t);
+
+        foreach($pathway->steps as $step) {
+            $steppath = $pathfolder . '/' . $step->slug . '.html';
+            $stepsource = $cmsdomain .  'steps/view/' . $step->id;
+            $stephtml = file_get_contents($stepsource);
+            $s=fopen($steppath,'w'); 
+            fwrite($s,$stephtml);
+            fclose($s);
+        }
 
         $this->set(compact(['publishedpath','pathsource','category','topic']));
 

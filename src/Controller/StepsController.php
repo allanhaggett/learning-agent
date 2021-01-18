@@ -15,6 +15,13 @@ use Cake\Utility\Text;
  */
 class StepsController extends AppController
 {
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        // configure the login action to don't require authentication, preventing
+        // the infinite redirect loop issue
+        $this->Authentication->addUnauthenticatedActions(['index','view']);
+    }
     /**
      * Index method
      *
@@ -36,7 +43,7 @@ class StepsController extends AppController
      */
     public function view($stepid = null)
     {
-
+        $this->Authorization->skipAuthorization();
         $step = $this->Steps->get($stepid, ['contain' => ['Activities', 
                                                             'Activities.ActivityTypes', 
                                                             'Activities.Tags', 
@@ -45,46 +52,7 @@ class StepsController extends AppController
                                                             'Pathways.Categories', 
                                                             'Pathways.Users'],
         ]);
-        $this->Authorization->authorize($step);
-        $user = $this->request->getAttribute('authentication')->getIdentity();
-        // We need create an empty array first. If nothing gets added to
-        // it, so be it
-        $useractivitylist = array();
-        $userbooklist = array();
-        // Get access to the apprprioate table
-        $au = TableRegistry::getTableLocator()->get('ActivitiesUsers');
-        $books = TableRegistry::getTableLocator()->get('ActivitiesBookmarks');
-        // Select based on currently logged in person
-        $useacts = $au->find()->where(['user_id = ' => $user->id]);
-        $userbooks = $books->find()->where(['user_id = ' => $user->id]);
-        // convert the results into a simple array so that we can
-        // use in_array in the template
-        $useractivities = $useacts->toList();
-        $userbookmarks = $userbooks->toList();
-        // Loop through the resources and add just the ID to the 
-        // array that we will pass into the template
-        foreach($useractivities as $uact) {
-            array_push($useractivitylist, $uact['activity_id']);
-        }
-        foreach($userbookmarks as $b) {
-            array_push($userbooklist, $b['activity_id']);
-        }
-        //
-        // we want to be able to tell if the current user is already on this
-        // pathway or not, so we take the same approach as above, parsing all
-        // the users into a single array so that we can perform a simple
-        // in_array($thisuser,$usersonthispathway) check and show the "take
-        // this Pathway" button or "you're on this Pathway" text
-        //
-        // Create the initially empty array that we also pass into the template
-        $usersonthispathway = array();
-        // Loop through the users that are on this pathway and parse just the 
-        // IDs into the array that we just created
-        foreach($step->pathways[0]->users as $pu) {
-            array_push($usersonthispathway,$pu->id);
-        }
-
-        $this->set(compact('step','useractivitylist','usersonthispathway', 'userbooklist'));
+        $this->set(compact('step'));
     }
 
     /**
@@ -114,6 +82,45 @@ class StepsController extends AppController
         $pathways = $this->Steps->Pathways->find('list', ['limit' => 200]);
         $this->set(compact('step', 'activities', 'pathways'));
     }
+
+
+   /**
+     * update slugs method
+     * We added the slug field _after_ we had a bunch in there
+     * so we needed to update all steps at once to have each
+     * step have the right slug, based on its name
+     *
+     * @param string|null $id Step id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function updateslugs()
+    {
+        $this->Authorization->skipAuthorization();
+        $allsteps = $this->Steps->find('all');
+        foreach($allsteps as $s) {
+            
+            $newslug = $this->Steps->get($s->id);
+            $sluggedTitle = strtolower(Text::slug($s->name));
+            $st = array('slug' => $sluggedTitle);
+
+            $newslug = $this->Steps->patchEntity($newslug, $st);
+            
+            if ($this->Steps->save($newslug)) {
+                print(__('The step has been saved.'));
+            }
+            //echo $s->slug;
+
+
+        }
+
+
+
+    
+    }
+
+
+
 
     /**
      * Edit method
